@@ -1,0 +1,44 @@
+---
+title: "Ray Tracer in C"
+slug: "ray-tracer"
+summary: "A ray tracer in C: move a light source and watch colours refract."
+tags: ["C", "Computer graphics", "Phong shading"]
+metrics: []
+links:
+  # TODO: add GitHub repo URL
+media:
+  - { type: "image", src: "/media/ray-tracer/signature.webp", alt: "Flat object colours only", caption: "Albedo only" }
+  - { type: "image", src: "/media/ray-tracer/diffuse.webp", alt: "Diffuse term", caption: "Diffuse term" }
+  - { type: "image", src: "/media/ray-tracer/specular.webp", alt: "Specular term", caption: "Specular term" }
+  - { type: "image", src: "/media/ray-tracer/full.webp", alt: "Full render with reflections and shadows", caption: "Full render: Phong, reflection, shadows" }
+featured: true
+order: 5
+---
+
+## Problem
+
+Build the rendering pipeline from scratch: no graphics library, only rays, intersections and lighting maths.
+
+## Approach
+
+Rays are cast per pixel against transformed ellipsoids and a plane. Each hit is lit with the Phong model (ambient, diffuse, specular) and extended with shadows and recursive reflection. The four figures above split the final image into its parts.
+
+{/* TODO: confirm refraction support (the one-line description says light refracts) and which scene features are implemented */}
+
+## Key technical decision
+
+Objects are unit primitives with a transform matrix and its stored inverse, so intersection runs in object space and any scaling, rotation or translation costs one matrix multiply per ray.
+
+## Result
+
+A 512 x 512 render of two ellipsoids and a floor with shading, reflections and shadows. It is a native program, so the site shows its output rather than running it.
+
+{/* TODO: render time, recursion depth used, anti-aliasing settings for the figures */}
+
+## Build it
+
+```bash
+cd "Light Raytracer"
+gcc -O2 -o RayTracer RayTracer.c utils.c svdDynamic.c -lm
+./RayTracer 512 3 0 out.ppm    # size, recursion depth, antialias 0/1, output file
+```

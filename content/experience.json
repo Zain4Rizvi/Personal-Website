@@ -1,0 +1,32 @@
+[
+  {
+    "id": "purolator",
+    "org": "Purolator Inc.",
+    "role": "Data Scientist (Co-op)",
+    "location": "Mississauga, ON",
+    "start": "May 2025",
+    "end": "Dec 2025",
+    "featured": true,
+    "bullets": [
+      "Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.",
+      "Compressed 50+ routes into 5 PCA components, forecast each with STL+ARIMA, enabling route-level staffing and capacity decisions (~50x more forecasts).",
+      "Automated end-to-end freight forecasting pipelines in Python and R (25 to 3 min runtime), extended to new terminals via historical demand reconstruction.",
+      "Automated executive KPI reporting (Python, QlikView, Excel) giving 100+ stakeholders real-time capacity visibility."
+    ],
+    "tags": ["Python", "R", "STL+ARIMA", "PCA", "QlikView"]
+  },
+  {
+    "id": "mto",
+    "org": "Ontario Ministry of Transportation",
+    "role": "Data Analyst (Co-op)",
+    "location": "Toronto, ON",
+    "start": "May 2024",
+    "end": "Aug 2024",
+    "featured": false,
+    "bullets": [
+      "Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).",
+      "Built and maintained Spring Boot REST APIs for the Towing and Storage Safety and Enforcement Act application, with AODA accessibility compliance."
+    ],
+    "tags": ["Python", "Excel", "Spring Boot", "REST", "AODA"]
+  }
+]

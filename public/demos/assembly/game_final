@@ -1,0 +1,1068 @@
+#####################################################################
+#
+# CSCB58 Winter 2025 Assembly Final Project
+# University of Toronto, Scarborough
+#
+# Student: Zain Rizvi, 1009319881, rizviza7, za.rizvi@utoronto.ca
+# # Bitmap Display Configuration:
+# - Unit width in pixels: 4 (update this as needed)
+# - Unit height in pixels: 4 (update this as needed)
+# - Display width in pixels: 256 (update this as needed)
+# - Display height in pixels: 256 (update this as needed)
+# - Base Address for Display: 0x10008000 ($gp)
+#
+# Which milestoneshave been reached in this submission?
+# (See the assignment handout for descriptions of the milestones)
+# - Milestone 4 (choose the one the applies)
+#
+# Which approved features have been implemented for milestone 4?
+# (See the assignment handout for the list of additional features)
+# 1. Double Jumping - Player Can Jump up to 2 times
+# 2. Item Pickups - Player can get 3 items. 1. Slow Down Time, 2. Increase  Jump Height, 3. Super Speed
+# # Link to video demonstration for final submission:
+# https://drive.google.com/file/d/12QJi8dmDWqEKQ2wYqBIx1lfLX601aeZ7/view?usp=sharing				<- LINK HERE (Google Drive)
+# # Are you OK with us sharing the video with people outside course staff? 
+# yes
+# # Any additional information that the TA needs to know:
+# - (write here, if any)
+#
+#####################################################################
+
+
+# Define Basic Stuff
+
+.eqv BASE_ADDRESS 0x10008000
+.eqv SCREEN_WIDTH 64
+.eqv SCREEN_HEIGHT 64
+.eqv SLEEP 40
+
+#Define Colors
+.eqv RED 0xff0000
+.eqv GREEN 0x00ff00
+.eqv BLUE 0x00ffff
+.eqv BLACK 0x000000
+.eqv YELLOW 0xFFFF00
+.eqv SPEED_BLUE 0xFF00BFFF
+.eqv WHITE 0xFFFFFFFF
+
+#Define Keys
+.eqv W_KEY 119
+.eqv A_KEY 97
+.eqv S_KEY 115
+.eqv D_KEY 100
+.eqv R_KEY 114
+.eqv Q_KEY 113
+
+# Player
+.eqv PLAYER_WIDTH 3
+.eqv PLAYER_HEIGHT 6
+.eqv PLAYER_START_X 8
+.eqv PLAYER_START_Y 62
+.eqv JUMP_LENGTH 11
+
+# Platforms
+.eqv PLATFORM_1_X 5
+.eqv PLATFORM_1_LENGTH 30
+.eqv PLATFORM_1_Y 63
+
+.eqv PLATFORM_2_X 25
+.eqv PLATFORM_2_LENGTH 30
+.eqv PLATFORM_2_Y 50
+
+.eqv PLATFORM_3_X 10 
+.eqv PLATFORM_3_LENGTH 30 
+.eqv PLATFORM_3_Y 35
+
+.eqv PLATFORM_4_X 30 
+.eqv PLATFORM_4_LENGTH 30 
+.eqv PLATFORM_4_Y 20
+
+# Items
+.eqv ITEM_1_X 25
+.eqv ITEM_1_Y 60
+.eqv ITEM_1_COLOUR 0x00ffff
+
+.eqv ITEM_2_X 40
+.eqv ITEM_2_Y 25
+.eqv ITEM_2_COLOUR 0x00ffff
+
+.eqv ITEM_3_X 40
+.eqv ITEM_3_Y 40
+.eqv ITEM_3_COLOUR 0x00ffff
+
+
+
+#####  BEGINING OF CODE #####
+.text
+
+# Initalize our variables as needed
+li $t0, BASE_ADDRESS # $t0 stores the base address for display 
+li $t1, RED # $t1 stores the red colour code
+li $t2, GREEN # $t2 stores the green colour code
+li $t3, BLUE # $t3 stores the blue coslour code
+sw $t1, 0($t0) # paint the first (top-left) unit red. 
+sw $t2, 4($t0) # paint the second unit on the first row green. Why $t0+4? 
+sw $t3, 256($t0) # paint the first unit on the second row blue. Why +256?
+#li $v0, 10 # terminate the program gracefully
+#syscall
+
+	
+main: 	#Initalize global variables
+	li $s1, PLAYER_START_X
+	li $s2, PLAYER_START_Y
+	li $s3, -1 		# JUMPING FLAG (-1 for no Jump and 1 for Jumping
+	li $s4, 0		# Jump Timer
+	li $s5, 1		# Double Jump Flag
+	li $s6, -1		# Powerup Item 1 (GameSpeed)
+	li $s7, -1		# Powerup Item 2 (Jump Height)
+	li $s0, -1		# Powerup Item 3
+
+
+main_loop:
+#Check for keyboard input.
+	jal KEYBOARD_INPUT
+# Check Jump Condition
+	bgezal $s3, JUMPING
+#• Figure out if the player character is standing on a platform.
+	jal PLATFORM_COLLISION
+#• Update player location, enemies, platforms, power ups, etc.
+	jal ITEM_COLLISIONS
+#ERASE
+	jal ERASE
+#DRAW
+	jal DRAW_PLATFORMS
+	jal DRAW_ITEMS
+	jal DRAW_PLAYER
+	jal DRAW_SCORE 	#  a0 contains number of picked up items
+#SLEEP
+	jal SLEEP_LOOP
+j main_loop	# Loop Back
+
+ITEM_COLLISIONS:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	
+	
+	li $t0, BASE_ADDRESS
+	move $t1, $s1	# Get Player X
+	move $t2, $s2	# Get Player Y
+	
+	li $a0, -1	# Assume no Collision (1 for collision)
+	# Item 1
+	li $a1, ITEM_1_X	# Get Item X
+	li $a2, ITEM_1_Y	# Get Item Y
+	jal ITEM_DETECT
+	bgezal $a0, ITEM_1_COLLISION
+	# Item 2
+	li $a1, ITEM_2_X
+	li $a2, ITEM_2_Y
+	jal ITEM_DETECT
+	bgezal $a0, ITEM_2_COLLISION
+	# Item 3
+	li $a1, ITEM_3_X
+	li $a2, ITEM_3_Y
+	jal ITEM_DETECT
+	bgezal $a0, ITEM_3_COLLISION
+	
+	#No COllision
+	
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	
+	jr $ra
+	
+ITEM_DETECT:		# Make it Vanish and get some powerup
+	li $t0, BASE_ADDRESS
+	move $t1, $s1	# Get Player X
+	move $t2, $s2	# Get Player Y
+	
+	move $t5, $a1	# Get Item X
+	move $t6, $a2	# Get Item Y
+	
+	# Check if Player Hits Item 1 (if player x + 3 >= item_x and player_x < item_x+3) and (player_x+)
+	#Check Left Side
+	add $t1, $t1, PLAYER_WIDTH
+	ble $t1, $t5, NO_ITEM_COLLISION	# Check Player
+	sub $t1, $t1, PLAYER_WIDTH	
+	
+	#Check Right Side
+	add $t5, $t5, 3		
+	bge $t1, $t5, NO_ITEM_COLLISION	# Check Player
+	sub $t5, $t5, 3
+	
+	#Check Top
+	blt $t2, $t6, NO_ITEM_COLLISION
+	
+	#Check Bottom
+	sub $t2, $t2, PLAYER_HEIGHT
+	add $t2, $t2, -1
+	bgt $t2, $t6, NO_ITEM_COLLISION
+	add $t2, $t2, PLAYER_HEIGHT
+	sub $t2, $t2, -1
+	
+	li $a0, 1
+	jr $ra
+	
+
+NO_ITEM_COLLISION:
+	li $a0, -1
+	jr $ra
+	
+ITEM_1_COLLISION:
+	li $s6, 1
+	jr $ra
+ITEM_2_COLLISION:
+	li $s7, 1
+	jr $ra
+ITEM_3_COLLISION:
+	li $s0, 1
+	jr $ra
+
+	
+
+PLATFORM_COLLISION:
+	move $t1, $s1	# Get Player X
+	move $t2, $s2	# Get Player Y
+	
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	
+	#Check Platform 1
+	li $a1, PLATFORM_1_X
+	li $a2, PLATFORM_1_Y
+	li $a3, PLATFORM_1_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, COLLISION
+	#Check Platform 2
+	li $a1, PLATFORM_2_X
+	li $a2, PLATFORM_2_Y
+	li $a3, PLATFORM_2_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, COLLISION
+	#Check Platform 3
+	li $a1, PLATFORM_3_X
+	li $a2, PLATFORM_3_Y
+	li $a3, PLATFORM_3_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, COLLISION
+	# Check Platform 4
+	li $a1, PLATFORM_4_X
+	li $a2, PLATFORM_4_Y
+	li $a3, PLATFORM_4_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, COLLISION
+	
+	#Reach Here means no collision we must fall according to gravity
+	add $s2, $s2, 1		# Fall 1 pixel
+	li $t4, 63
+	bgt $s2, 63, FAIL	# Check if we below screen
+	
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	jr $ra
+
+	
+	
+PLATFORM_COLLIDE: #RETURN 1 if colliding, 0 otherwise (in $a0)
+	li $t0, BASE_ADDRESS
+	
+	move $t1, $s1	# Get Player X
+	move $t2, $s2	# Get Player Y
+	
+	move $t3, $a1	# Platform X
+	move $t4, $a2 	# Platform Y
+	move $t5, $a3 	# Platform Length
+	
+	
+	
+	#if (player_y == platform_y + 1) and (player x >= platform x1 and <= platform x1 + length) return 1 else 0
+	addi $t4, $t4, -1
+	bne $t4, $t2, FALLING	# If player_y == platform_y+1 return not_falling
+	
+
+	add $t1, $t1, PLAYER_WIDTH
+	ble $t1, $t3, FALLING		# If player -3 < Platform then falling
+	sub $t1, $t1, PLAYER_WIDTH
+	
+	
+	add $t3, $t3, $t5
+	bgt $t1, $t3, FALLING		# If player > platform x then falling
+	
+	
+	li $a0, 1			# Else Not falling so can return to main loop
+	jr $ra
+
+
+
+FALLING:
+	li $a0, 0
+	jr $ra
+	
+COLLISION:
+	#Reset Double Jump Flag
+	li $s5, 1
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	jr $ra
+
+
+
+#KEYBOARD INPUT
+KEYBOARD_INPUT:
+	# See if Press Happened
+	li $t9, 0xffff0000 
+	lw $t8, 0($t9) 
+	bne $t8, 1, RETURN	# If no Press we can just skip
+	
+	#Check Which Press and Brnach
+	lw $t2, 4($t9) # this assumes $t9 is set to 0xfff0000 from before 
+	beq $t2, W_KEY, W_PRESSED 
+	beq $t2, A_KEY, A_PRESSED 
+	beq $t2, S_KEY, S_PRESSED 
+	beq $t2, D_KEY, D_PRESSED 
+	beq $t2, R_KEY, R_PRESSED 
+	beq $t2, Q_KEY, Q_PRESSED 
+	
+	# Anything else we dont care
+	jr $ra
+
+W_PRESSED:
+	#Check if On Ground
+	move $t1, $s1	# Get Player X
+	move $t2, $s2	# Get Player Y
+	
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	
+	
+	#Check Platform 1
+	li $a1, PLATFORM_1_X
+	li $a2, PLATFORM_1_Y
+	li $a3, PLATFORM_1_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, JUMP	# On Ground
+	#Check Platform 2
+	li $a1, PLATFORM_2_X
+	li $a2, PLATFORM_2_Y
+	li $a3, PLATFORM_2_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, JUMP	# On Ground
+	#Check Platform 3
+	li $a1, PLATFORM_3_X
+	li $a2, PLATFORM_3_Y
+	li $a3, PLATFORM_3_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, JUMP	# On Ground
+	#Check Platform 4
+	li $a1, PLATFORM_4_X
+	li $a2, PLATFORM_4_Y
+	li $a3, PLATFORM_4_LENGTH
+	jal PLATFORM_COLLIDE
+	beq $a0, 1, JUMP	# On Ground
+	
+	#Reach Here means In Air, Can only Jump if we can double jump
+	# Check Double Jump
+	bgtz $s5, DOUBLE_JUMP	# Only double jump when flag allows
+	
+	
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	jr $ra
+	
+JUMP:
+	# Set Jump Flag to 1, Timer at 0
+	li $s4, 0 	#  Timer to 0
+	li $s3, 1	# Turn on Jump Flag
+	# Go Back
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	jr $ra
+DOUBLE_JUMP:
+	# Set Double Jump to 0
+	li $s5, -1	# Double Jump to 0
+	li $s4, 0	# Start Jump Timer
+	li $s3, 1	# Turn on Jump Flag
+	
+	# Go Back
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	jr $ra
+	
+JUMPING:
+	add $s4, $s4, 1		# Add to jumping timer
+	bgt $s4, JUMP_LENGTH, END_JUMP 	# Check if Jump Length Over
+	#Push to Stack
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	
+	li  $a1, 2	# Jump Amount
+	bgezal $s7, POWERUP_2	# Increase Jump Amount
+	sub $s2, $s2, $a1		#move up 1
+	blt $s2, 0, WIN
+	
+	
+	#Retrieve From Stack
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	jr $ra
+
+POWERUP_2:
+	li $a1, 3
+	jr $ra
+	
+END_JUMP:
+	li $s3, -1	# Turn off Jump Flag
+	li $s4, 0	# Restart Jump Timer
+	jr $ra
+
+S_PRESSED:
+	addi $s2, $s2, 1
+	jr $ra
+R_PRESSED:
+	j main
+Q_PRESSED:
+	break
+
+A_PRESSED: #Move Model Left (if possible or else dont move)
+	# Load Curr Coordinates
+	li $t0, BASE_ADDRESS
+	move $t1, $s1 # X
+		
+	#Check if we can move left
+	# move speed a0
+	li $a0, 1
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	
+	bgezal $s0, POWERUP_3
+	
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4
+	sub $t3, $t1, 1
+	bltz $t3, RETURN	# If Model Off Screen Dont move
+	
+	# Now we can move Model Left
+	sub $s1, $s1, $a0
+	j RETURN
+	
+D_PRESSED: #Move Model Left (if possible or else dont move)
+	# Load Curr Coordinates
+	move $t1, $s1 # X
+		
+	#Check if we can move right
+	#Move by speed a0
+	li $a0, 1
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	bgezal $s0, POWERUP_3
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4
+	
+	add $t3, $t1, 1
+	bgt $t3, 61, RETURN	# If Model Off Screen Dont move
+	
+	# Now we can move Model Left
+	add $s1, $s1, $a0
+	j RETURN
+	
+POWERUP_3:	 #Change Movement Speed
+	li $a0, 3
+	jr $ra
+	
+	
+RETURN:
+	jr $ra
+
+
+
+SLEEP_LOOP:
+	li $v0, 32 
+	li $a0, SLEEP # Wait one second (1000 milliseconds)
+	bgtz $s6, POWERUP_1
+	syscall
+	jr $ra
+
+POWERUP_1:
+	mul $a0, $a0, 2
+	syscall
+	jr $ra
+
+
+
+#DRAWING ##############################################################################################################
+DRAW_PLATFORMS:
+
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	
+	li $t0, BASE_ADDRESS
+	#PLATFORM 1
+	li $a1, PLATFORM_1_X
+	li $a2, PLATFORM_1_Y
+	li $a3, PLATFORM_1_LENGTH
+	jal DRAW_PLATFORM
+	#PLATFORM 2
+	li $a1, PLATFORM_2_X
+	li $a2, PLATFORM_2_Y
+	li $a3, PLATFORM_2_LENGTH
+	jal DRAW_PLATFORM
+	#PLATFORM 3
+	li $a1, PLATFORM_3_X
+	li $a2, PLATFORM_3_Y
+	li $a3, PLATFORM_3_LENGTH
+	jal DRAW_PLATFORM
+	#PLATFORM 4
+	li $a1, PLATFORM_4_X
+	li $a2, PLATFORM_4_Y
+	li $a3, PLATFORM_4_LENGTH
+	jal DRAW_PLATFORM
+	# RETURN
+	
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	
+	jr $ra
+	
+DRAW_ITEMS:			# DRAWN FROM TOP LEFT
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	
+	li $t0, BASE_ADDRESS
+	#ITEM 1
+	
+	li $a1, ITEM_1_X
+	li $a2, ITEM_1_Y
+	li $a3, ITEM_1_COLOUR
+	move $a0, $s6		# Dont Draw if Powerup Active
+	jal DRAW_ITEM
+	#ITEM 2
+	li $a1, ITEM_2_X
+	li $a2, ITEM_2_Y
+	li $a3, ITEM_2_COLOUR
+	move $a0, $s7		# Dont Draw if Powerup Active
+	jal DRAW_ITEM
+	#ITEM 3
+	li $a1, ITEM_3_X
+	li $a2, ITEM_3_Y
+	li $a3, ITEM_3_COLOUR
+	move $a0, $s0		# Dont Draw if Powerup Active
+	jal DRAW_ITEM
+	
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	
+	jr $ra
+	
+DRAW_PLATFORM: # Default make platforms horizontal and Red for now
+	li $t0, BASE_ADDRESS # $t0 stores the base address for display 
+	
+	move $t1, $a1
+	mul $t1, $t1, 4
+	
+	move $t2, $a2
+	mul $t2, $t2, 256
+	
+	move $t3, $a3
+	li $t4, RED
+	
+	li $t5, 0 # Pointer Drawer
+	
+	# Calculate
+	add $t5, $t5, $t0
+	add $t5, $t5, $t1
+	add $t5, $t5, $t2
+	
+	mul $t3, $t3, 4
+	add $t3, $t5, $t3
+	j PLATFORM_DRAW_LOOP
+	
+PLATFORM_DRAW_LOOP:
+	bgt $t5, $t3, PLATFORM_DRAW_LOOP_FINISH
+	sw $t4, 0($t5)
+	addi $t5, $t5, 4
+	j PLATFORM_DRAW_LOOP
+	
+PLATFORM_DRAW_LOOP_FINISH:
+	jr $ra
+
+DRAW_PLAYER: # Starting at Bottom Left
+	# Player is drawn like below but will collide as if he was rectangle
+	#	@
+	#      ###
+	#	#
+	#	#
+	#      ###
+	#      # #
+	
+	li $t0, BASE_ADDRESS # $t0 stores the base address for display
+
+	# Get Player X and Y
+	move $a1, $s1
+	mul $a1, $a1, 4		# X Pixel
+	move $a2, $s2
+	mul $a2, $a2, 256	# Y Pixel
+	
+	li $a0, 0
+	add $a0, $a0, $t0
+	add $a0, $a0, $a1
+	add $a0, $a0, $a2
+	
+	move $t1, $a0	     # Assume Player Location is given by a0
+	
+	li $t2, WHITE  # $t2 stores the blue colour code
+	li $t3, GREEN
+	
+	# Legs + arms
+	sw $t3, 0($t1)        # paint the first unit on the second row green
+	sw $t3, 8($t1)
+	
+	sw $t3, -256($t1)
+	sw $t3, -248($t1)
+	
+	sw $t3, -1024($t1)
+	sw $t3, -1016($t1)
+	
+	# Body (to head)
+	sub $t1, $t1, 252
+	sw $t3, 0($t1)
+	sw $t3, -256($t1)
+	sw $t3, -512($t1)
+	sw $t3, -768($t1)
+	sw $t2, -1024($t1)
+	
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+	
+	# Modify Drawing For Powerups
+	bgezal $s6, DRAW_POWER_1
+	bgezal $s7, DRAW_POWER_2
+	bgezal $s0, DRAW_POWER_3
+	
+	# Load Stack
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4	# Get original ra back
+	
+	jr $ra
+
+DRAW_POWER_1:
+	li $t2, RED
+	sw $t2, -1024($t1)
+	jr $ra
+DRAW_POWER_2:
+	li $t3, YELLOW
+	add $t1, $t1, 252
+	sw $t3, 0($t1)
+	sw $t3, 8($t1)
+	sw $t3, -256($t1)
+	sw $t3, -248($t1)
+	jr $ra
+DRAW_POWER_3:
+	# Get Right Position
+	move $t1, $a0
+	sub $t1, $t1, 252
+	
+	li $t3, SPEED_BLUE
+	sw $t3, 0($t1)
+	sw $t3, -256($t1)
+	sw $t3, -512($t1)
+	sw $t3, -768($t1)
+	sw $t2, -1024($t1)
+	jr $ra
+	
+DRAW_ITEM:
+	bgtz $a0, RETURN
+	li $t0, BASE_ADDRESS # $t0 stores the base address for display 
+	
+	# X Pixel
+	move $t1, $a1
+	mul $t1, $t1, 4		# X Pixel
+	
+	# Y Pixel
+	move $t2, $a2
+	mul $t2, $t2, 256	# Y Pixel
+	
+	# Colour
+	move $t3, $a3		
+	
+	li $t5, 0 # Pointer Drawer
+	
+	# Calculate
+	add $t5, $t5, $t0
+	add $t5, $t5, $t1
+	add $t5, $t5, $t2
+	
+	# Draw
+	sw $t3, 0($t5)
+	sw $t3, 4($t5)
+	sw $t3, 8($t5)
+	addi $t5, $t5, 256
+	
+	sw $t3, 0($t5)
+	sw $t3, 4($t5)
+	sw $t3, 8($t5)
+	addi $t5, $t5, 256
+	
+	sw $t3, 0($t5)
+	sw $t3, 4($t5)
+	sw $t3, 8($t5)
+	jr $ra
+
+	
+	
+DRAW_SCORE:	# score from sum of powerups
+	#Push to Stack
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)		# Store ra to stack
+
+	# Draw Word Sore
+	jal DRAW_WORD_SCORE
+	#Calculate Score
+	move $t1, $s6
+	move $t2, $s7
+	move $t3, $s0
+	
+	add $t1, $t1, $t2
+	add $t1, $t1, $t3	# $t1 Contains score (-3 = 0, -1 = 1, 1 = 2, 3 = 3)
+	
+	#Draw Corresponding Score
+	li $t0, -1
+	beq $t0, $t1, SCORE_1
+	li $t0, 1
+	beq $t0, $t1, SCORE_2
+	li $t0, 3
+	beq $t0, $t1, SCORE_3
+
+	
+	#Retrieve From Stack
+	lw $ra, 0($sp)		# Store ra to stack
+	addi $sp, $sp, 4
+	
+	jr $ra
+	
+DRAW_WORD_SCORE:
+    li $t0, BASE_ADDRESS     # Start of screen buffer
+    li $t1, GREEN            # Color
+    
+    ############ S ############
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    
+    ############ C ############
+    li $t0, BASE_ADDRESS
+    addi $t0, $t0, 16        # Move right for next letter
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    
+    ############ O ############
+    li $t0, BASE_ADDRESS
+    addi $t0, $t0, 32        # Move right again
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+
+    ############ R ############
+    li $t0, BASE_ADDRESS
+    addi $t0, $t0, 48
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 8($t0)
+
+    ############ E ############
+    li $t0, BASE_ADDRESS
+    addi $t0, $t0, 64
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    addi $t0, $t0, 256
+    sw $t1, 0($t0)
+    sw $t1, 4($t0)
+    sw $t1, 8($t0)
+
+    jr $ra
+
+	
+SCORE_1:	# Draw 1 dot
+	li $t0, BASE_ADDRESS
+	li $t1, GREEN
+	
+	add $t0, $t0, 1540
+	sw $t1, 0($t0)
+	
+	lw $ra, 0($sp)		# Load From Stack
+	addi $sp, $sp, 4
+	
+	jr $ra
+SCORE_2:	# Draw 2 dot
+	li $t0, BASE_ADDRESS
+	li $t1, GREEN
+	
+	add $t0, $t0, 1540
+	sw $t1, 0($t0)
+	sw $t1, 20($t0)
+	
+	lw $ra, 0($sp)		# Load From Stack
+	addi $sp, $sp, 4
+	
+	jr $ra
+SCORE_3: 	# Draw 3 dot
+	li $t0, BASE_ADDRESS
+	li $t1, GREEN
+	
+	add $t0, $t0, 1540
+	sw $t1, 0($t0)
+	sw $t1, 20($t0)
+	sw $t1, 40($t0)
+	
+	lw $ra, 0($sp)		# Load From Stack
+	addi $sp, $sp, 4
+	
+	jr $ra
+	
+
+ERASE: # Clear the screen
+	li $t0, BASE_ADDRESS
+	li $t1, SCREEN_WIDTH
+	li $t2, SCREEN_HEIGHT
+	li $t3, BLACK
+	mul $t1, $t1, $t2	# Height * Width	
+	mul $t1, $t1, 4		# Height * Width * 4 (represent each pixel
+	add $t1, $t0, $t1	# End of Screen Pixel at $t1
+	j ERASE_LOOP
+
+	ERASE_LOOP:		# While current < final pixel: clear pixel and move to next
+		bgt $t0, $t1, ERASED
+		sw $t3, 0($t0)
+		addi $t0, $t0, 4	#Push Background Color on stack at $t0
+		j ERASE_LOOP
+	ERASED:
+		jr $ra #Done Erasing return to main
+		
+
+FAIL:
+	#Clear Screen
+	jal ERASE
+	# Draw YOU FAIL
+	li $t0, BASE_ADDRESS
+	li $t1, RED
+	li $t2, 7012	# Change this acoordingly
+	add $t2, $t2, $t0
+	
+	#  F
+	sw $t1, 0($t2)
+	sw $t1, 4($t2)
+	sw $t1, 8($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	
+	# A
+	li $t2, 7028	# Change this acoordingly
+	add $t2, $t2, $t0
+	
+	sw $t1, 0($t2)
+	sw $t1, 4($t2)
+	sw $t1, 8($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	sw $t1, 8($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	sw $t1, 4($t2)
+	sw $t1, 8($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	sw $t1, 8($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	sw $t1, 8($t2)
+	addi $t2, $t2, 256
+	
+	# I
+	li $t2, 7044	# Change this acoordingly
+	add $t2, $t2, $t0
+	
+	sw $t1, 0($t2)
+	sw $t1, 4($t2)
+	sw $t1, 8($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)
+	sw $t1, 4($t2)
+	sw $t1, 8($t2)
+	
+	# L
+	li $t2, 7056	# Change this acoordingly
+	add $t2, $t2, $t0
+	
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)
+	sw $t1, 8($t2)
+	sw $t1, 12($t2)
+	
+	j END_LOOP
+	
+WIN:
+	# Clear Screen
+	jal ERASE
+
+	# Draw WIN
+	li $t0, BASE_ADDRESS
+	li $t1, GREEN              # You can choose any color
+	li $t2, 0               # Adjust starting position
+	li $t3, 7012
+	add $t2, $t3, $t0
+	
+	# W
+	sw $t1, 0($t2)             # Row 0
+	sw $t1, 8($t2)
+	sw $t1, 16($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)             # Row 1
+	sw $t1, 8($t2)
+	sw $t1, 16($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)             # Row 2
+	sw $t1, 8($t2)
+	sw $t1, 16($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)             # Row 3
+	sw $t1, 8($t2)
+	sw $t1, 16($t2)
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)             # Row 4
+	sw $t1, 12($t2)
+
+	# I (reposition to next letter)
+
+	addi $t3, $t3, 20
+	add $t2, $t3, $t0
+	
+	sw $t1, 4($t2)             # Row 0
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)             # Row 1
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)             # Row 2
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)             # Row 3
+	addi $t2, $t2, 256
+	sw $t1, 4($t2)             # Row 4
+
+	# N (reposition to next letter)
+
+	addi $t3, $t3, 12
+	add $t2, $t3, $t0
+	
+	sw $t1, 0($t2)             # Row 0
+	sw $t1, 12($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)             # Row 1
+	sw $t1, 4($t2)
+	sw $t1, 12($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)             # Row 2
+	sw $t1, 8($t2)
+	sw $t1, 12($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)             # Row 3
+	sw $t1, 12($t2)
+	sw $t1, 12($t2)
+	addi $t2, $t2, 256
+	sw $t1, 0($t2)             # Row 4
+	sw $t1, 12($t2)
+
+	j END_LOOP
+	
+	
+END_LOOP:
+	# See if Press Happened
+	jal DRAW_SCORE
+	li $t9, 0xffff0000 
+	lw $t8, 0($t9) 
+	bne $t8, 1, END_SLEEP	# If no Press we can just skip
+	lw $t2, 4($t9) # this assumes $t9 is set to 0xfff0000 from before 
+	
+	#Check Which Press and Brnach
+	beq $t2, R_KEY, R_PRESSED 
+	beq $t2, Q_KEY, Q_PRESSED 
+
+END_SLEEP:
+	li $v0, 32 
+	li $a0, SLEEP # Wait one second (1000 milliseconds)
+	syscall
+	J END_LOOP

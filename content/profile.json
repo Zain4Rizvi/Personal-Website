@@ -1,0 +1,23 @@
+{
+  "name": "Zain Rizvi",
+  "title": "ML engineer and builder.",
+  "tagline": "Forecasting systems, AI tools and robotics that ship.",
+  "roles": ["ML/AI engineering", "Data science", "Software engineering", "Robotics"],
+  "siteUrl": "https://zainrizvi.ca",
+  "email": "zain4rizvi@gmail.com",
+  "links": {
+    "linkedin": "https://linkedin.com/in/zain4rizvi",
+    "github": "https://github.com/Zain4Rizvi",
+    "resume": "/resume.pdf"
+  },
+  "metrics": [
+    { "value": "75%", "label": "forecast error cut", "detail": "4% to 1% MAPE" },
+    { "value": "10M+", "label": "shipments", "detail": "5 years of data, cross-validated" },
+    { "value": "25→3", "label": "min pipeline runtime", "detail": "end-to-end freight forecasting" },
+    { "value": "95%", "label": "processing time cut", "detail": "1M+ in HCV payments reconciled" }
+  ],
+  "about": [
+    "I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.",
+    "I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a ray tracer in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end."
+  ]
+}

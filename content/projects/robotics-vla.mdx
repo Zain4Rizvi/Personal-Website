@@ -1,0 +1,41 @@
+---
+title: "Robotics VLA"
+slug: "robotics-vla"
+summary: "Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator."
+tags: ["PyTorch", "SmolVLA", "MuJoCo", "Gymnasium", "React", "Three.js"]
+metrics:
+  - { value: "9/10", label: "grasp success" }
+  - { value: "5/10", label: "stack success" }
+  - { value: "87%", label: "bin throws (scripted expert)" }
+  - { value: "90%", label: "peg insertion (scripted expert)" }
+links:
+  - { label: "Live demo", href: "https://robotics.zainrizvi.ca" }
+  # TODO: add GitHub repo URL
+media:
+  - { type: "image", src: "/media/robotics-vla/scene.webp", alt: "A robot arm stacking a red cube on a green cube, with the two camera views the policy sees", caption: "Scene: command, arm and the policy's two camera views" }
+  - { type: "image", src: "/media/robotics-vla/model.webp", alt: "SmolVLA architecture view with 16-layer transformer blocks for the vision-language model and the action expert", caption: "Model: 16-layer blocks, VLM and action expert" }
+featured: true
+order: 1
+---
+
+## Problem
+
+A robot policy that only repeats one trained motion is not useful. The goal was a policy that takes a plain-language command and acts on it, plus a way to see what the model attends to while it does.
+
+## Approach
+
+I fine-tuned the action expert of SmolVLA (450M parameters) on demonstrations to follow language commands. To generate demonstrations and evaluate, I wrote a 7-joint arm simulator in MuJoCo with a Gymnasium interface and PyTorch, driven by scripted experts. A React and Three.js app visualizes the model's attention across all 16 layers.
+
+{/* TODO: dataset size, number of demonstrations, training hardware and time */}
+
+## Key technical decision
+
+Fine-tune only the action expert rather than the full model. It keeps the pretrained vision-language backbone intact and makes training practical at this scale.
+
+{/* TODO: confirm which components were frozen and the exact training recipe */}
+
+## Result
+
+The fine-tuned policy grasps 9 of 10 times and stacks 5 of 10 times when given a language command. The scripted experts that generate the data reach 87% on bin throws and 90% on peg insertion.
+
+{/* TODO: evaluation protocol (number of seeds, object set, command set) */}

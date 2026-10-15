@@ -1,0 +1,34 @@
+---
+title: "Assembly Platformer"
+slug: "assembly-platformer"
+summary: "An 8-bit platformer written entirely in MIPS assembly, playable in the browser."
+tags: ["MIPS assembly", "sms32v50", "JavaScript"]
+metrics:
+  - { value: "2", label: "jumps (double jump)" }
+  - { value: "3", label: "item pickups" }
+links:
+  - { label: "Play in browser", href: "/demos/assembly/player.html" }
+  - { label: "Video demo", href: "https://drive.google.com/file/d/12QJi8dmDWqEKQ2wYqBIx1lfLX601aeZ7/view?usp=sharing" }
+media:
+  - { type: "image", src: "/media/assembly-platformer/screen.png", alt: "The platformer on its 64 by 64 bitmap display", caption: "64 x 64 bitmap display, 4 px per unit" } # TODO: capture screenshot of player.html
+featured: true
+order: 4
+---
+
+## Problem
+
+Write a complete real-time game with no language runtime: no sprites, no engine, just registers, memory and a bitmap display.
+
+## Approach
+
+The game targets a 64 x 64 memory-mapped display and the keyboard register. It has movement, double jumping, and three item pickups (slow time, higher jump, super speed). Everything, including collision and drawing, is hand-written assembly.
+
+## Key technical decision
+
+To make it playable on the web, I ran the original assembly unchanged: `mips.js` is a small MIPS interpreter that executes the `game_final` source, and `player.html` draws the display to a canvas and feeds key presses into the keyboard registers. There is no port to JavaScript, so what you play is the assembly.
+
+## Result
+
+Playable at the link above. Controls: A/D move, W jump (twice for double jump), S drop, R restart, Q quit. Collect the three items, then jump off the top.
+
+{/* TODO: lines of assembly, frame rate, and anything notable about collision handling */}

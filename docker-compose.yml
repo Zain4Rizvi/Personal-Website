@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_CF_ANALYTICS_TOKEN: ${NEXT_PUBLIC_CF_ANALYTICS_TOKEN:-}
+    image: zain-portfolio
+    restart: unless-stopped
+    ports:
+      - "3000:3000" # Cloudflare (tunnel or proxy) points here
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache

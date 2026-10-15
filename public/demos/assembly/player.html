@@ -1,0 +1,55 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assembly Game (MIPS in the browser)</title>
+<style>
+  body { background:#0a0d0c; color:#e6ece9; font:16px/1.6 system-ui, sans-serif; text-align:center; margin:2rem 1rem; }
+  h1 { font-weight:600; letter-spacing:-.02em; }
+  canvas { width:min(512px, 92vw); height:auto; aspect-ratio:1; image-rendering:pixelated; background:#000; border:1px solid #1f2927; }
+  kbd { background:#111615; border:1px solid #1f2927; padding:1px 6px; font-family:ui-monospace, monospace; }
+  a { color:#3ddc97; }
+  p { color:#8a9a95; }
+  #status { margin-top:.5rem; color:#3ddc97; min-height:1.4em; font-family:ui-monospace, monospace; font-size:.875rem; }
+</style>
+<p><a href="/projects/assembly-platformer">&larr; Case study</a></p>
+<h1>Assembly Platformer</h1>
+<canvas id="screen" width="64" height="64" tabindex="0"></canvas>
+<p><kbd>A</kbd>/<kbd>D</kbd> move &nbsp; <kbd>W</kbd> jump (twice for double jump) &nbsp; <kbd>S</kbd> drop &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>Q</kbd> quit<br>
+Collect the 3 cyan items (slow time, high jump, speed), then jump off the top.</p>
+<div id="status">Loading...</div>
+<script src="mips.js"></script>
+<script>
+const ctx = document.getElementById('screen').getContext('2d');
+const img = ctx.createImageData(64, 64);
+const status = document.getElementById('status');
+const KEYS = { w:'w', a:'a', s:'s', d:'d', r:'r', q:'q', arrowup:'w', arrowleft:'a', arrowdown:'s', arrowright:'d', ' ':'w' };
+let cpu;
+
+function draw() {
+  for (let i = 0; i < 4096; i++) {
+    const c = cpu.display[i];
+    img.data.set([(c >> 16) & 255, (c >> 8) & 255, c & 255, 255], i * 4);
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+function frame() {
+  const ms = cpu.runUntilSleep();
+  draw();
+  if (cpu.halted) { status.textContent = 'Stopped. Reload the page to play again.'; return; }
+  setTimeout(frame, ms);
+}
+
+addEventListener('keydown', e => {
+  const k = KEYS[e.key.toLowerCase()];
+  if (!k || !cpu) return;
+  e.preventDefault();
+  cpu.pressKey(k.charCodeAt(0));
+});
+
+fetch('game_final').then(r => r.text()).then(src => {
+  cpu = new MipsCPU(src);
+  status.textContent = 'Running';
+  frame();
+}).catch(e => { status.textContent = 'Failed to load game_final: ' + e.message + ' (serve this folder over http, not file://)'; });
+</script>

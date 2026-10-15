@@ -1,0 +1,20 @@
+# Lean: track only what is needed to present the site. Everything else is ignored.
+# Project sources (Assembly Game, Light Raytracer, light2D_1009319881, Canadian Political
+# Donations Platform, UofToilets, DishDive) plus BUILD.md/main.py/pyproject.toml live locally only.
+/*
+!/.gitignore
+!/.dockerignore
+!/.env.example
+!/Dockerfile
+!/docker-compose.yml
+!/README.md
+!/package.json
+!/package-lock.json
+!/next.config.ts
+!/postcss.config.mjs
+!/tsconfig.json
+!/app/
+!/components/
+!/content/
+!/lib/
+!/public/

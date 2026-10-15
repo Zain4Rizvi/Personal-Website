@@ -1,0 +1,36 @@
+---
+title: "Rocket League Analyzer"
+slug: "rocket-league-analyzer"
+summary: "A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback."
+tags: ["LangChain", "LLM tool calling", "Docker", "3D dashboard"]
+metrics: []
+links:
+  - { label: "Live demo", href: "https://rocket.zainrizvi.ca" }
+  # TODO: add GitHub repo URL
+media:
+  - { type: "image", src: "/media/rocket-league-analyzer/replay-lab.webp", alt: "Replay Lab: 3D match view with playback controls and an Ask the coach panel", caption: "Replay Lab: 3D playback and the coach panel" } # TODO: higher-resolution capture of the 3D view
+featured: true
+order: 2
+---
+
+## Problem
+
+Match telemetry is dense and hard to read by eye. Players want answers to questions about a match, not a spreadsheet.
+
+{/* TODO: telemetry source (replay parser), match volume, who it is for */}
+
+## Approach
+
+Drop in a Rocket League .replay file and the app prepares its telemetry and opens an interactive 3D simulation. A LangChain agent with tool calling answers natural-language questions ("Why did we concede the third goal?") by calling functions over that telemetry. The Dockerized dashboard stays synced to playback, with controls for follow-ball, coverage, centroid and pressure overlays.
+
+## Key technical decision
+
+Let the model call typed tools over the telemetry instead of reading it as text, so answers come from computed values.
+
+{/* TODO: list the tools, and how answers are checked for accuracy */}
+
+## Result
+
+A working analyzer: ask a question, get an answer grounded in the match data, and watch the same moment in 3D.
+
+{/* TODO: quantitative result, if any */}

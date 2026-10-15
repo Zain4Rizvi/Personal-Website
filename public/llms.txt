@@ -1,0 +1,28 @@
+# Zain Rizvi
+
+> ML engineer and builder. Honours BSc, Computer Science & Mathematics, University of Toronto (2022-2026). Targeting ML/AI engineering, data science, software engineering and robotics roles.
+
+Contact: zain4rizvi@gmail.com | https://linkedin.com/in/zain4rizvi | https://github.com/Zain4Rizvi
+
+Full structured data (profile, experience, education, skills, projects with case-study text): /api/profile
+
+## Impact
+- 75% forecast error cut (4% to 1% MAPE), cross-validated on 5 years of data across 10M+ shipments (Purolator)
+- 25 to 3 min freight forecasting pipeline runtime
+- 95% processing time cut reconciling $1M+ across 130,000+ payment records (Ontario Ministry of Transportation)
+
+## Experience
+- Purolator Inc., Data Scientist (Co-op), May-Dec 2025
+- Ontario Ministry of Transportation, Data Analyst (Co-op), May-Aug 2024
+
+## Projects
+- Robotics VLA: /projects/robotics-vla
+- Rocket League Analyzer: /projects/rocket-league-analyzer
+- Canadian Political Donations Platform: /projects/political-donations
+- Assembly Platformer (playable): /projects/assembly-platformer
+- Ray Tracer in C: /projects/ray-tracer
+- Light2D, 2D light transport with colour dispersion in C: /projects/light2d
+- Songify: 1st place, AMACSS AI Olympics Hackathon
+
+## Resume
+/resume.pdf

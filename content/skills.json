@@ -1,0 +1,5 @@
+{
+  "Languages": ["Python", "C++", "SQL", "Java", "R", "C"],
+  "Libraries": ["PyTorch", "Scikit-learn", "XGBoost", "LangChain", "Spring Boot", "Pandas", "NumPy", "Polars"],
+  "Tools": ["Docker", "AWS (Cloud Practitioner)", "Git/GitHub", "REST APIs", "Postman", "MySQL", "Cloudflare"]
+}

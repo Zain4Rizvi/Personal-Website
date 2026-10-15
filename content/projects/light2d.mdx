@@ -1,0 +1,44 @@
+---
+title: "Light2D: Dispersion in 2D"
+slug: "light2d"
+summary: "A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows."
+tags: ["C", "Optics", "Snell's law", "Fresnel", "Dispersion"]
+metrics:
+  - { value: "12", label: "refracting lenses in the scene" }
+  - { value: "n + 0.5h", label: "dispersion: index shifts with hue h" }
+links:
+  # TODO: add GitHub repo URL
+media:
+  - { type: "image", src: "/media/light2d/scene.webp", alt: "Symmetric scene of twelve glass circles lit by a point source at the centre, with rainbow fringes along the refracted beams", caption: "Full scene: 12 glass circles, point light at the centre" }
+  - { type: "image", src: "/media/light2d/dispersion.webp", alt: "Close-up of a beam leaving a lens, split into red, green and blue bands", caption: "Detail: dispersion fringes" }
+featured: true
+order: 6
+---
+
+## Problem
+
+Simulate how light moves through a box of objects: it bounces off mirrors, scatters off rough walls, and bends through glass. The starter code (CSC D18, F.J. Estrada) supplied the scene, image and ray-drawing machinery. I wrote the propagation core and then went past the brief.
+
+## Approach
+
+Rays leave a point source in random directions and are traced recursively. Each step finds the nearest hit among the four walls and the circles (a quadratic solve per circle), draws the segment, then branches by material. Mirrors reflect, scattering surfaces send the ray out in a random direction in the hemisphere around the normal, and glass splits it into a reflected and a transmitted ray whose brightness is shared by the Fresnel term. Each ray is drawn additively, so bright regions come from many rays overlapping.
+
+## Key technical decision
+
+Dispersion. Every ray is born with a random hue in [0, 1], converted to RGB, and that hue also shifts the glass's refractive index (n + 0.5 &times; hue). Because Snell's law then bends each colour by a slightly different angle, the white light fans out into a spectrum with no extra rendering step. The strength of the effect is a single constant.
+
+## Result
+
+A symmetric scene of twelve glass circles produces caustics and rainbow fringes along the refracted beams. The image above is the submitted render.
+
+{/* TODO: rays, depth and resolution used for the submitted render (it is 1080 x 1080) */}
+
+## Build it
+
+```bash
+cd light2D_1009319881
+gcc -O2 -o light2D light2D.c -lm              # add -fopenmp for multithreading, if available
+./light2D 1080 1080 300000 12                 # width height rays max_depth, writes light2D_output.ppm
+```
+
+Output is a PPM, so convert it to PNG to view it. Each glass hit spawns two child rays, so cost grows quickly with depth: a small run (512 x 512, 3,000 rays, depth 8) takes about 2 seconds single-threaded.

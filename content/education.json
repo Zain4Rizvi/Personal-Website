@@ -1,0 +1,17 @@
+{
+  "degrees": [
+    {
+      "school": "University of Toronto",
+      "degree": "Honours BSc",
+      "majors": ["Computer Science", "Mathematics"],
+      "start": "Sep 2022",
+      "end": "Aug 2026",
+      "coursework": ["Machine Learning", "Artificial Intelligence", "Probability", "Data Structures", "Algorithms"]
+    }
+  ],
+  "awards": [
+    { "title": "1st Place, AMACSS AI Olympics Hackathon" },
+    { "title": "Frank Faubert Scholarship" },
+    { "title": "Admission Scholarship" }
+  ]
+}
