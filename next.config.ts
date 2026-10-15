@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
-const config: NextConfig = {
-  output: "standalone",
-  poweredByHeader: false,
-  // content/ is read at runtime via fs; make sure it ships in the standalone bundle
-  outputFileTracingIncludes: { "/**": ["./content/**/*"] },
-};
+initOpenNextCloudflareForDev();
+
+const config: NextConfig = { poweredByHeader: false };
 
 export default config;

@@ -1,15 +1,12 @@
-import fs from "node:fs";
-import path from "node:path";
+import { availableProjectMedia } from "@/content/projects.generated";
 import type { Media } from "@/lib/content";
 import Figure from "./Figure";
-
-const exists = (src: string) => fs.existsSync(path.join(process.cwd(), "public", src));
 
 // Image/video slot. Screenshots and videos only; interactive embeds are handled by the project page. Missing files render a labelled empty slot.
 export default function ProjectMedia({
   media, n, label, fit = "contain",
 }: { media: Media; n: number; label: string; fit?: "cover" | "contain" }) {
-  const ok = exists(media.src);
+  const ok = availableProjectMedia.has(media.src);
   return (
     <Figure n={n} caption={media.caption ?? label}>
       <div className="aspect-[4/3] w-full overflow-hidden bg-surface">

@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { getProject, getProjects } from "@/lib/content";
+import { getProject, getProjectBodyHtml, getProjects } from "@/lib/content";
 import ProjectMedia from "@/components/ProjectMedia";
 import LinkButton from "@/components/LinkButton";
 import Light2DApp from "@/components/Light2DApp";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamicParams = false;
 export const generateStaticParams = () => getProjects().filter((p) => p.featured).map((p) => ({ slug: p.slug }));
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -74,7 +72,7 @@ export default async function ProjectPage({ params }: Props) {
       )}
 
       <div className="prose-case mt-4 max-w-[65ch]">
-        <MDXRemote source={p.body} />
+        <div dangerouslySetInnerHTML={{ __html: getProjectBodyHtml(p.slug) }} />
       </div>
 
       <nav aria-label="Next project" className="mt-20 border-t border-line pt-6 font-mono text-sm">

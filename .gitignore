@@ -11,6 +11,8 @@
 !/package.json
 !/package-lock.json
 !/next.config.ts
+!/open-next.config.ts
+!/wrangler.jsonc
 !/postcss.config.mjs
 !/tsconfig.json
 !/app/
@@ -18,3 +20,4 @@
 !/content/
 !/lib/
 !/public/
+!/scripts/

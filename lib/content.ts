@@ -1,9 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
-
-const dir = path.join(process.cwd(), "content");
-const json = <T,>(f: string): T => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
+import education from "@/content/education.json";
+import experience from "@/content/experience.json";
+import profile from "@/content/profile.json";
+import skills from "@/content/skills.json";
+import { projectBodyHtml, projects } from "@/content/projects.generated";
 
 export type Profile = {
   name: string;
@@ -34,28 +33,11 @@ export type Project = {
   media: Media[]; featured: boolean; order: number; body: string;
 };
 
-export const getProfile = () => json<Profile>("profile.json");
-export const getExperience = () => json<Experience[]>("experience.json");
-export const getEducation = () => json<Education>("education.json");
-export const getSkills = () => json<Skills>("skills.json");
-
-export function getProjects(): Project[] {
-  const pdir = path.join(dir, "projects");
-  return fs
-    .readdirSync(pdir)
-    .filter((f) => f.endsWith(".mdx"))
-    .map((f) => {
-      const { data, content } = matter(fs.readFileSync(path.join(pdir, f), "utf8"));
-      return {
-        ...data,
-        tags: data.tags ?? [],
-        metrics: data.metrics ?? [],
-        links: data.links ?? [],
-        media: data.media ?? [],
-        body: content,
-      } as Project;
-    })
-    .sort((a, b) => a.order - b.order);
-}
+export const getProfile = (): Profile => profile;
+export const getExperience = (): Experience[] => experience;
+export const getEducation = (): Education => education;
+export const getSkills = (): Skills => skills;
+export const getProjects = (): Project[] => [...projects];
+export const getProjectBodyHtml = (slug: string): string => projectBodyHtml[slug];
 
 export const getProject = (slug: string) => getProjects().find((p) => p.slug === slug);

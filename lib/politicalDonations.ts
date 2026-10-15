@@ -1,38 +1,10 @@
-import fs from "fs";
-import path from "path";
 import pg from "pg";
 
-const ENV_KEYS = ["SUPABASE_DB_URL", "SUPABASE_URL", "SUPABASE_ANON_KEY"] as const;
 const ALLOWED_DOMAINS = ["utoronto.ca", "mail.utoronto.ca", "gmail.com"];
 
 type PoolGlobal = typeof globalThis & { politicalDonationsPool?: pg.Pool };
 
-function ensureDonationsEnv() {
-  if (ENV_KEYS.every((key) => process.env[key])) return;
-  const envPath = path.join(process.cwd(), "Canadian Political Donations Platform", "backend", ".env");
-  let text: string;
-  try {
-    text = fs.readFileSync(envPath, "utf8");
-  } catch {
-    return;
-  }
-  for (const line of text.split(/\r?\n/)) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-    const eq = trimmed.indexOf("=");
-    if (eq < 1) continue;
-    const key = trimmed.slice(0, eq).trim();
-    if (!ENV_KEYS.includes(key as (typeof ENV_KEYS)[number]) || process.env[key]) continue;
-    let value = trimmed.slice(eq + 1).trim();
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
-    }
-    process.env[key] = value;
-  }
-}
-
 function pool() {
-  ensureDonationsEnv();
   if (!process.env.SUPABASE_DB_URL) throw new Error("database not configured");
   const g = globalThis as PoolGlobal;
   if (!g.politicalDonationsPool) {
@@ -198,7 +170,6 @@ function allowedEmail(email: string) {
 }
 
 export async function requireResearcher(request: Request) {
-  ensureDonationsEnv();
   const header = request.headers.get("authorization") || "";
   const token = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
   if (!token || !process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
