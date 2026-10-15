@@ -7,9 +7,10 @@ metrics:
   - { value: "52", label: "backend tests (Jest)" }
   - { value: "3", label: "person team" }
 links:
-  - { label: "Source", href: "https://github.com/UTSC-CSCC01-Software-Engineering-I/course-project-weavers" } # TODO: confirm repo is public, or link a personal fork
+  - { label: "Source", href: "https://github.com/UTSC-CSCC01-Software-Engineering-I/course-project-weavers" }
+embed: { kind: "iframe", src: "/demos/political-donations/index.html", title: "Canadian political donations explorer", badge: "Runs in your browser", hint: "Filter by year and party, click a province, then open Analytics from the bar inside the demo." }
 media:
-  - { type: "image", src: "/media/political-donations/map.webp", alt: "Map of donation totals by federal riding", caption: "Donation totals by region" } # TODO: screenshot (needs a live Supabase project)
+  - { type: "image", src: "/media/political-donations/map.webp", alt: "Map of donation totals by province, shaded by amount", caption: "Donation totals by province" }
 featured: true
 order: 3
 ---
@@ -30,7 +31,9 @@ Enforce access on the server, not in the UI. The individual-record endpoint vali
 
 Researchers sign in, then filter, sort, paginate and export individual records. The public map stays open. The backend has 52 passing Jest tests, and the data pipeline has pytest coverage.
 
-## Run it locally
+## Run it
+
+The demo on this page is the project front end. While the database answers, the map, analytics, researcher records, and export use live aggregates. If it does not, the same UI shows a preview of public province, year, and party totals.
 
 ```bash
 cd backend && npm install && npm start    # http://localhost:3001/api/health
@@ -38,5 +41,3 @@ cd frontend && npm install && npm start   # http://localhost:3000
 ```
 
 The backend needs `SUPABASE_DB_URL`, `SUPABASE_URL` and `SUPABASE_ANON_KEY` (see `backend/.env.example`). Load the data with the scripts in `data/Database Creation`.
-
-{/* TODO: the hosted Supabase project is paused, so there is no live demo. Add one when a project is available. */}

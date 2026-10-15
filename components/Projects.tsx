@@ -45,9 +45,19 @@ export default function Projects({ projects }: { projects: Project[] }) {
                   </p>
                 )}
                 <div className="mt-6 flex flex-wrap gap-3">
-                  {p.links[0] && <LinkButton href={p.links[0].href} primary>{p.links[0].label}</LinkButton>}
-                  <LinkButton href={`/projects/${p.slug}`} primary={!p.links[0]}>{p.embed && !p.links[0] ? "Try it" : "Description"} &rarr;</LinkButton>
-                  {p.links.slice(1).map((l) => <LinkButton key={l.href} href={l.href}>{l.label}</LinkButton>)}
+                  {p.embed ? (
+                    <LinkButton href={`/projects/${p.slug}`} primary>Try it</LinkButton>
+                  ) : p.links[0] ? (
+                    <LinkButton href={p.links[0].href} primary>{p.links[0].label}</LinkButton>
+                  ) : (
+                    <LinkButton href={`/projects/${p.slug}`} primary>Description &rarr;</LinkButton>
+                  )}
+                  {(p.embed ? p.links : p.links.slice(p.links[0] ? 1 : 0)).map((l) => (
+                    <LinkButton key={l.href} href={l.href}>{l.label}</LinkButton>
+                  ))}
+                  {!p.embed && p.links[0] && (
+                    <LinkButton href={`/projects/${p.slug}`}>Description &rarr;</LinkButton>
+                  )}
                 </div>
               </div>
             </Reveal>

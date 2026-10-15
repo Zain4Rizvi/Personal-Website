@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/demos/political-donations/static/css/main.38178079.css",
+    "main.js": "/demos/political-donations/static/js/main.09f8081e.js",
+    "static/js/206.5f917b3c.chunk.js": "/demos/political-donations/static/js/206.5f917b3c.chunk.js",
+    "index.html": "/demos/political-donations/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.38178079.css",
+    "static/js/main.09f8081e.js"
+  ]
+}
