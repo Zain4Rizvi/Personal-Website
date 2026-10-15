@@ -5,7 +5,7 @@ import Figure from "./Figure";
 
 const exists = (src: string) => fs.existsSync(path.join(process.cwd(), "public", src));
 
-// Image/video slot. Screenshots and videos only, no iframes. Missing files render a labelled empty slot.
+// Image/video slot. Screenshots and videos only; interactive embeds are handled by the project page. Missing files render a labelled empty slot.
 export default function ProjectMedia({
   media, n, label, fit = "contain",
 }: { media: Media; n: number; label: string; fit?: "cover" | "contain" }) {

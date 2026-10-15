@@ -30,6 +30,7 @@ export type Project = {
   title: string; slug: string; summary: string; tags: string[];
   metrics: { value: string; label: string }[];
   links: { label: string; href: string }[];
+  embed?: { kind: "iframe" | "light2d"; src?: string; title: string; badge: string; hint: string };
   media: Media[]; featured: boolean; order: number; body: string;
 };
 

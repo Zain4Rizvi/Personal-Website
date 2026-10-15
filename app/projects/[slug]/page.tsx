@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getProject, getProjects } from "@/lib/content";
 import ProjectMedia from "@/components/ProjectMedia";
+import LinkButton from "@/components/LinkButton";
+import Light2DApp from "@/components/Light2DApp";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -14,8 +16,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getProject((await params).slug);
   return p ? { title: p.title, description: p.summary, alternates: { canonical: `/projects/${p.slug}` } } : {};
 }
-
-const ext = (h: string) => /^https?:/.test(h) || h.endsWith(".html");
 
 export default async function ProjectPage({ params }: Props) {
   const p = getProject((await params).slug);
@@ -29,7 +29,7 @@ export default async function ProjectPage({ params }: Props) {
       <Link href="/#projects" className="font-mono text-xs text-muted hover:text-accent">&larr; 02 / Projects</Link>
       <header className="mt-8 grid gap-8 md:grid-cols-12">
         <div className="md:col-span-8">
-          <p className="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")} / Case study</p>
+          <p className="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")} / Description</p>
           <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight md:text-6xl">{p.title}</h1>
           <p className="mt-5 max-w-[65ch] text-xl text-muted">{p.summary}</p>
           <ul className="mt-6 flex flex-wrap gap-2 font-mono text-xs text-muted">
@@ -37,18 +37,7 @@ export default async function ProjectPage({ params }: Props) {
           </ul>
           {p.links.length > 0 && (
             <div className="mt-8 flex flex-wrap gap-3 font-mono text-sm">
-              {p.links.map((l, k) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  {...(ext(l.href) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className={`inline-flex min-h-11 items-center border px-5 transition-colors ${
-                    k === 0 ? "border-accent bg-accent text-bg hover:border-text hover:bg-text" : "border-line hover:border-accent hover:text-accent"
-                  }`}
-                >
-                  {l.label} &#8599;
-                </a>
-              ))}
+              {p.links.map((l, k) => <LinkButton key={l.href} href={l.href} primary={k === 0}>{l.label}</LinkButton>)}
             </div>
           )}
         </div>
@@ -63,6 +52,18 @@ export default async function ProjectPage({ params }: Props) {
           </dl>
         )}
       </header>
+
+      {p.embed && (
+        <section aria-label={p.embed.title} className="mt-12">
+          <p className="mb-3 inline-flex items-center gap-2 border border-accent px-2 py-1 font-mono text-xs uppercase tracking-widest text-accent">
+            <span aria-hidden className="h-2 w-2 animate-pulse bg-accent" />{p.embed.badge}
+          </p>
+          <p className="mb-3 font-mono text-sm text-muted">{p.embed.hint}</p>
+          {p.embed.kind === "light2d" ? <Light2DApp /> : (
+            <iframe src={p.embed.src} title={p.embed.title} className="h-[780px] w-full border border-accent bg-bg" />
+          )}
+        </section>
+      )}
 
       {p.media.length > 0 && (
         <div className={`mt-12 grid gap-6 ${({ 1: "max-w-3xl", 2: "sm:grid-cols-2" } as Record<number, string>)[p.media.length] ?? "sm:grid-cols-2 lg:grid-cols-4"}`}>

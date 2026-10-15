@@ -4,7 +4,7 @@ import Section from "./SectionLabel";
 import ProjectMedia from "./ProjectMedia";
 import Reveal from "./Reveal";
 
-const ext = (h: string) => /^https?:/.test(h) || h.endsWith(".html");
+import LinkButton from "./LinkButton";
 
 export default function Projects({ projects }: { projects: Project[] }) {
   const featured = projects.filter((p) => p.featured);
@@ -39,18 +39,15 @@ export default function Projects({ projects }: { projects: Project[] }) {
                     <li key={t} className="border border-line px-2 py-1">{t}</li>
                   ))}
                 </ul>
-                <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
-                  <Link href={`/projects/${p.slug}`} className="text-accent hover:text-text">Case study &rarr;</Link>
-                  {p.links.map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      {...(ext(l.href) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="text-muted hover:text-accent"
-                    >
-                      {l.label} &#8599;
-                    </a>
-                  ))}
+                {p.embed && (
+                  <p className="mt-6 inline-flex w-fit items-center gap-2 border border-accent px-2 py-1 font-mono text-xs uppercase tracking-widest text-accent">
+                    <span aria-hidden className="h-2 w-2 animate-pulse bg-accent" />{p.embed.badge}
+                  </p>
+                )}
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {p.links[0] && <LinkButton href={p.links[0].href} primary>{p.links[0].label}</LinkButton>}
+                  <LinkButton href={`/projects/${p.slug}`} primary={!p.links[0]}>{p.embed && !p.links[0] ? "Try it" : "Description"} &rarr;</LinkButton>
+                  {p.links.slice(1).map((l) => <LinkButton key={l.href} href={l.href}>{l.label}</LinkButton>)}
                 </div>
               </div>
             </Reveal>

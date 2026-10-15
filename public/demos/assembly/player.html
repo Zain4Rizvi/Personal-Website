@@ -11,7 +11,7 @@
   p { color:#8a9a95; }
   #status { margin-top:.5rem; color:#3ddc97; min-height:1.4em; font-family:ui-monospace, monospace; font-size:.875rem; }
 </style>
-<p><a href="/projects/assembly-platformer">&larr; Case study</a></p>
+<p><a href="/projects/assembly-platformer" target="_top">&larr; Description</a></p>
 <h1>Assembly Platformer</h1>
 <canvas id="screen" width="64" height="64" tabindex="0"></canvas>
 <p><kbd>A</kbd>/<kbd>D</kbd> move &nbsp; <kbd>W</kbd> jump (twice for double jump) &nbsp; <kbd>S</kbd> drop &nbsp; <kbd>R</kbd> restart &nbsp; <kbd>Q</kbd> quit<br>
@@ -19,7 +19,10 @@ Collect the 3 cyan items (slow time, high jump, speed), then jump off the top.</
 <div id="status">Loading...</div>
 <script src="mips.js"></script>
 <script>
-const ctx = document.getElementById('screen').getContext('2d');
+const canvas = document.getElementById('screen');
+canvas.focus();
+addEventListener('pointerdown', () => canvas.focus());
+const ctx = canvas.getContext('2d');
 const img = ctx.createImageData(64, 64);
 const status = document.getElementById('status');
 const KEYS = { w:'w', a:'a', s:'s', d:'d', r:'r', q:'q', arrowup:'w', arrowleft:'a', arrowdown:'s', arrowright:'d', ' ':'w' };
