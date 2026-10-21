@@ -1,37 +1,41 @@
-import type { Education, Experience, Profile } from "@/lib/content";
+import type { Experience, Profile } from "@/lib/content";
 
 const role = (r: string) => r.replace(/\s*\([^)]*\)$/, "");
+const logos: Record<string, string> = {
+  purolator: "/logos/purolator.png",
+  mto: "/logos/mto.png",
+};
 
-export default function Hero({
-  profile: p,
-  education,
-  experience,
-}: {
-  profile: Profile;
-  education: Education;
-  experience: Experience[];
-}) {
-  const degree = education.degrees[0];
+function Row({ src, children }: { src: string; children: React.ReactNode }) {
   return (
-    <section aria-label="Introduction" className="mx-auto max-w-6xl px-5 pb-4 pt-16 md:px-8 md:pt-24">
+    <p className="flex items-center gap-3">
+      <img src={src} alt="" className="h-6 w-6 shrink-0 object-contain" />
+      <span>{children}</span>
+    </p>
+  );
+}
+
+export default function Hero({ profile: p, experience }: { profile: Profile; experience: Experience[] }) {
+  return (
+    <section aria-label="Introduction" className="px-5 pb-4 pt-16 md:px-10 md:pt-24">
       <h1 className="max-w-[42rem] text-4xl font-normal leading-[1.15] tracking-[-1px] sm:text-[3.5rem] sm:leading-[1.2]">
-        {p.name} is an {p.title.replace(/\.$/, "")}.
+        ML Engineer and builder
       </h1>
       <p className="mt-4 text-lg italic">{p.tagline}</p>
       <div className="mt-16 grid gap-10 sm:grid-cols-2 sm:gap-16">
         <div>
           <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Currently</h2>
-          {degree && (
-            <p className="mt-4">
-              {degree.degree}, {degree.majors.join(" & ")} @ {degree.school}
-            </p>
-          )}
+          <div className="mt-4">
+            <Row src="/logos/uoft.png">Computer Science and Mathematics at UofT</Row>
+          </div>
         </div>
         <div>
           <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Previously</h2>
-          <ul className="mt-4 space-y-2">
+          <ul className="mt-4 space-y-3">
             {experience.map((e) => (
-              <li key={e.id}>{role(e.role)} @ {e.org}</li>
+              <li key={e.id}>
+                <Row src={logos[e.id]}>{role(e.role)} @ {e.org}</Row>
+              </li>
             ))}
           </ul>
         </div>

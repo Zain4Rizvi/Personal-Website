@@ -16,7 +16,7 @@ export default function Nav({ profile }: { profile: Profile }) {
   const pill = scrolled ? "rounded-full border border-line bg-black/80 px-4 py-2 backdrop-blur-md" : "";
   return (
     <header className={`sticky top-0 z-50 ${scrolled ? "" : "border-b border-line bg-bg"}`}>
-      <nav aria-label="Primary" className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8">
+      <nav aria-label="Primary" className="flex items-center justify-between gap-4 px-5 py-3 md:px-10">
         <Link href="/" className={`text-[13px] uppercase tracking-[0.14em] ${pill}`}>
           {profile.name}
         </Link>
