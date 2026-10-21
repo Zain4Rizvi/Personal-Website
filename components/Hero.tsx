@@ -1,29 +1,40 @@
-import type { Profile } from "@/lib/content";
-import HeroMount from "./HeroMount";
+import type { Education, Experience, Profile } from "@/lib/content";
 
-const btn = "inline-flex min-h-11 items-center border px-5 font-mono text-sm transition-colors";
+const role = (r: string) => r.replace(/\s*\([^)]*\)$/, "");
 
-export default function Hero({ profile: p }: { profile: Profile }) {
+export default function Hero({
+  profile: p,
+  education,
+  experience,
+}: {
+  profile: Profile;
+  education: Education;
+  experience: Experience[];
+}) {
+  const degree = education.degrees[0];
   return (
-    <section aria-label="Introduction" className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-14 md:px-8 md:pb-24 md:pt-20 lg:grid-cols-12 lg:items-center">
-      <div className="lg:col-span-7">
-        <p className="mb-6 font-mono text-xs uppercase tracking-widest text-muted">{p.name}</p>
-        <h1 className="text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">{p.title}</h1>
-        <p className="mt-6 max-w-[40ch] text-xl text-muted">{p.tagline}</p>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <a href="#projects" className={`${btn} border-accent bg-accent text-bg hover:bg-text hover:border-text`}>
-            View work
-          </a>
-          <a href={p.links.resume} className={`${btn} border-line text-text hover:border-accent hover:text-accent`}>
-            Resume
-          </a>
-          <a href="#contact" className={`${btn} border-line text-text hover:border-accent hover:text-accent`}>
-            Contact
-          </a>
+    <section aria-label="Introduction" className="mx-auto max-w-6xl px-5 pb-4 pt-16 md:px-8 md:pt-24">
+      <h1 className="max-w-[42rem] text-4xl font-normal leading-[1.15] tracking-[-1px] sm:text-[3.5rem] sm:leading-[1.2]">
+        {p.name} is an {p.title.replace(/\.$/, "")}.
+      </h1>
+      <p className="mt-4 text-lg italic">{p.tagline}</p>
+      <div className="mt-16 grid gap-10 sm:grid-cols-2 sm:gap-16">
+        <div>
+          <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Currently</h2>
+          {degree && (
+            <p className="mt-4">
+              {degree.degree}, {degree.majors.join(" & ")} @ {degree.school}
+            </p>
+          )}
         </div>
-      </div>
-      <div className="lg:col-span-5">
-        <HeroMount />
+        <div>
+          <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Previously</h2>
+          <ul className="mt-4 space-y-2">
+            {experience.map((e) => (
+              <li key={e.id}>{role(e.role)} @ {e.org}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

@@ -4,11 +4,11 @@
 @source "../components";
 
 @theme {
-  --color-bg: #0a0d0c;
-  --color-surface: #111615;
-  --color-line: #1f2927;
-  --color-text: #e6ece9;
-  --color-muted: #8a9a95;
+  --color-bg: #000;
+  --color-surface: #111;
+  --color-line: #2a2a2a;
+  --color-text: #dedad2;
+  --color-muted: #8a847a;
   --color-accent: #3ddc97;
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
@@ -32,14 +32,9 @@ body {
 
 a { text-underline-offset: 3px; }
 
-/* Reveal: content is visible by default; JS adds .reveal-init then .in */
-.reveal-init { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
-.reveal-init.in { opacity: 1; transform: none; }
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .reveal-init { opacity: 1; transform: none; }
 }
 
 /* Case-study prose */

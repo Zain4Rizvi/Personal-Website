@@ -24,7 +24,7 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-6xl px-5 pb-24 pt-10 md:px-8 md:pt-16">
-      <Link href="/#projects" className="font-mono text-xs text-muted hover:text-accent">&larr; 02 / Projects</Link>
+      <Link href="/" className="font-mono text-xs text-muted hover:text-accent">&larr; Home</Link>
       <header className="mt-8 grid gap-8 md:grid-cols-12">
         <div className="md:col-span-8">
           <p className="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")} / Description</p>
