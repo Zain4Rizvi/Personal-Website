@@ -18,7 +18,6 @@ Full structured data (profile, experience, education, skills, projects with case
 ## Projects
 - Robotics VLA: /projects/robotics-vla
 - Rocket League Analyzer: /projects/rocket-league-analyzer
-- Canadian Political Donations Platform: /projects/political-donations
 - Assembly Platformer (playable): /projects/assembly-platformer
 - Ray Tracer in C: /projects/ray-tracer
 - Light2D, 2D light transport with colour dispersion in C: /projects/light2d
