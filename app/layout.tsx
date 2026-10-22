@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: { title: `${p.name} | ${p.title}`, description: p.tagline, type: "website", siteName: p.name },
   twitter: { card: "summary_large_image" },
 };
-export const viewport: Viewport = { themeColor: "#0a0d0c", colorScheme: "dark" };
+export const viewport: Viewport = { themeColor: "#000000", colorScheme: "dark" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Nav name={p.name} />
+        <Nav profile={p} />
         <main id="main">{children}</main>
         <Footer profile={p} />
         <Analytics />

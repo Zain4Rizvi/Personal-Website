@@ -1,0 +1,33 @@
+---
+title: "StickDrift"
+slug: "stickdrift"
+summary: "A PS5-controller movement check disguised as games for long-term care."
+tags: ["Three.js", "Gamepad API", "React", "FastAPI", "TimescaleDB", "PyTorch"]
+metrics: []
+links:
+  - { label: "Visit site", href: "https://stickdrift.health/" }
+  - { label: "Devpost", href: "https://devpost.com/software/stickdrift" }
+  - { label: "GitHub", href: "https://github.com/AyanASaiyed/StickDrift" }
+media:
+  - { type: "image", src: "/media/stickdrift/gallery-5.jpg", alt: "Harbour Fishing: a first-person view of a rod tracing a glowing lane between low-poly fish", caption: "Harbour Fishing, played with one stick at a time" }
+  - { type: "image", src: "/media/stickdrift/gallery-2.jpg", alt: "The StickDrift lobby listing Apple Picking, Harbour Fishing, and Rat Catching", caption: "Residents pick a game. Staff see the scores." }
+  - { type: "image", src: "/media/stickdrift/card.jpg", alt: "Blender view of the low-poly garden lobby with three game pads", caption: "The lobby, modelled in Blender" }
+featured: true
+order: 3
+---
+
+## Problem
+
+Changes in how someone moves can show up years before a diagnosis, and long-term care staff have little time to notice them. StickDrift was our Hack the Valley 11 entry for PointClickCare's Catch It Early challenge: make the check feel like a game, not a clinic.
+
+## Approach
+
+A resident logs in with a PS5 controller, walks a Three.js lobby, and plays Apple Picking, Harbour Fishing, or Rat Catching. The Gamepad API reads each stick. A separate measurement layer records reaction time, path error, and tremor, while the resident only sees scores and stars.
+
+Staff get a live view about a tenth of a second behind, a badge (No concerns, Keep an eye on, or Check soon), and plain-language visit cards. A small PyTorch model scores resemblance to three movement patterns. Gemini answers questions only from that resident's recorded numbers, and a PDF report is one click away. FastAPI and TimescaleDB are the only thing the two laptops share.
+
+Built with Bryan Wei, Hreem Pandya, and Ayan Saiyed. StickDrift does not diagnose. It flags a change, and a nurse decides what happens next.
+
+## Result
+
+Residents play three short games. Staff see trends across visits and a clinician report, without the resident ever looking at a health number.
