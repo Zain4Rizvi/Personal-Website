@@ -3,6 +3,9 @@ import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 initOpenNextCloudflareForDev();
 
-const config: NextConfig = { poweredByHeader: false };
+const config: NextConfig = {
+  poweredByHeader: false,
+  env: { BUILD_YEAR: String(new Date().getFullYear()) },
+};
 
 export default config;
