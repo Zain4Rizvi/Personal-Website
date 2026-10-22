@@ -129,7 +129,10 @@ export default function Light2DApp() {
     }
   }, [shapes, sel, disp, restart]);
 
-  useEffect(() => () => cancelAnimationFrame(st.current.raf), []);
+  useEffect(() => () => {
+    cancelAnimationFrame(st.current.raf);
+    st.current.raf = 0; // strict mode cancels the frame but the id would still block restart()
+  }, []);
 
   const pos = (e: React.PointerEvent) => {
     const b = e.currentTarget.getBoundingClientRect();

@@ -10,8 +10,18 @@
     }
   ],
   "awards": [
-    { "title": "1st Place, AMACSS AI Olympics Hackathon" },
+    { "title": "AI Olympics 1st Place Winner" },
+    { "title": "Hack the Valley 9 Award Winner" },
+    { "title": "MTO Road Safety Solutions, 2nd place" },
+    { "title": "UofT Frank Faubert Scholarship" }
+  ],
+  "scholarships": [
     { "title": "Frank Faubert Scholarship" },
     { "title": "Admission Scholarship" }
+  ],
+  "competed": [
+    "Battle of the Schools (UofT and Waterloo)",
+    "Putnam Math Competition 2023",
+    "Hack the Valley 11"
   ]
 }

@@ -9,18 +9,20 @@ export default function Projects({ projects }: { projects: Project[] }) {
       <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Work</h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-4">
         {featured.map((p) => {
-          const media = p.media[0];
+          const media = (p.slug === "ray-tracer" && p.media.find((m) => m.src.endsWith("full.webp"))) || p.media[0];
           const ok = !!media && availableProjectMedia.has(media.src);
+          // Square artwork can't fill 16:9 without cropping. Same frame, whole image.
+          const contained = !!media && /assembly-platformer|ray-tracer|light2d/.test(media.src);
           return (
             <li key={p.slug}>
               <Link href={`/projects/${p.slug}`} className="group block">
-                <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-surface">
+                <div className={`aspect-[16/9] overflow-hidden rounded-2xl ${contained && media.src.includes("light2d") ? "bg-[#656864]" : "bg-black"}`}>
                   {ok && media.type === "image" ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={media.src}
                       alt={media.alt}
-                      className={`h-full w-full ${media.src.includes("assembly") ? "object-contain" : "object-cover"}`}
+                      className={`h-full w-full ${contained ? "object-contain" : "object-cover"}`}
                       style={media.src.includes("assembly") ? { imageRendering: "pixelated" } : undefined}
                     />
                   ) : ok && media.type === "video" ? (

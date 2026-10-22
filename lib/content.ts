@@ -22,6 +22,7 @@ export type Experience = {
 export type Education = {
   degrees: { school: string; degree: string; majors: string[]; start: string; end: string; coursework: string[] }[];
   awards: { title: string }[];
+  competed: string[];
 };
 export type Skills = Record<string, string[]>;
 export type Media = { type: "image" | "video"; src: string; alt: string; caption?: string; poster?: string };

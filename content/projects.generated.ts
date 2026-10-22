@@ -178,9 +178,9 @@ export const projects: import("@/lib/content").Project[] = [
     "media": [
       {
         "type": "image",
-        "src": "/media/assembly-platformer/screen.png",
-        "alt": "The platformer on its 64 by 64 bitmap display",
-        "caption": "64 x 64 bitmap display, 4 px per unit"
+        "src": "/media/assembly-platformer/play.gif",
+        "alt": "The assembly platformer being played: the character runs, double jumps between platforms, picks up three items, and clears the level",
+        "caption": "Playthrough on the 64 x 64 bitmap display"
       }
     ],
     "featured": true,
@@ -318,7 +318,7 @@ export const availableProjectMedia = new Set<string>([
   "/media/stickdrift/gallery-5.jpg",
   "/media/stickdrift/gallery-2.jpg",
   "/media/stickdrift/card.jpg",
-  "/media/assembly-platformer/screen.png",
+  "/media/assembly-platformer/play.gif",
   "/media/ray-tracer/signature.webp",
   "/media/ray-tracer/diffuse.webp",
   "/media/ray-tracer/specular.webp",
