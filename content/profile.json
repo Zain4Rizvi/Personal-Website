@@ -18,6 +18,6 @@
   ],
   "about": [
     "I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.",
-    "I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a ray tracer in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end."
+    "I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end."
   ]
 }

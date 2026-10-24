@@ -18,8 +18,9 @@ Full structured data (profile, experience, education, skills, projects with case
 ## Projects
 - Robotics VLA: /projects/robotics-vla
 - Rocket League Analyzer: /projects/rocket-league-analyzer
+- Maple Market: /projects/maple-market
+- StickDrift: /projects/stickdrift
 - Assembly Platformer (playable): /projects/assembly-platformer
-- Ray Tracer in C: /projects/ray-tracer
 - Light2D, 2D light transport with colour dispersion in C: /projects/light2d
 - Songify: 1st place, AMACSS AI Olympics Hackathon
 

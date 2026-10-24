@@ -9,10 +9,10 @@ export default function Projects({ projects }: { projects: Project[] }) {
       <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Work</h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-4">
         {featured.map((p) => {
-          const media = (p.slug === "ray-tracer" && p.media.find((m) => m.src.endsWith("full.webp"))) || p.media[0];
+          const media = p.media[0];
           const ok = !!media && availableProjectMedia.has(media.src);
           // Square artwork can't fill 16:9 without cropping. Same frame, whole image.
-          const contained = !!media && /assembly-platformer|ray-tracer|light2d/.test(media.src);
+          const contained = !!media && /assembly-platformer|light2d/.test(media.src);
           return (
             <li key={p.slug}>
               <Link href={`/projects/${p.slug}`} className="group block">
