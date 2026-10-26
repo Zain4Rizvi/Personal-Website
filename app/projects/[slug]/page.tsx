@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ViewTransition } from "react";
+import { availableProjectMedia } from "@/content/projects.generated";
 import { getProject, getProjectBodyHtml, getProjects } from "@/lib/content";
+import Figure from "@/components/Figure";
 import ProjectMedia from "@/components/ProjectMedia";
 import LinkButton from "@/components/LinkButton";
 import Light2DApp from "@/components/Light2DApp";
@@ -23,6 +26,7 @@ export default async function ProjectPage({ params }: Props) {
   const next = all[(i + 1) % all.length];
 
   return (
+    <ViewTransition enter={{ "to-project": "rise", default: "fade" }} exit={{ "to-project": "lift", default: "fade" }} default="none">
     <article className="mx-auto max-w-6xl px-5 pb-24 pt-10 md:px-8 md:pt-16">
       <Link href="/" className="font-mono text-xs text-muted hover:text-accent">&larr; Home</Link>
       <header className="mt-8 grid gap-8 md:grid-cols-12">
@@ -65,9 +69,27 @@ export default async function ProjectPage({ params }: Props) {
 
       {p.media.length > 0 && (
         <div className={`mt-12 grid gap-6 ${({ 1: "max-w-3xl", 2: "sm:grid-cols-2" } as Record<number, string>)[p.media.length] ?? "sm:grid-cols-2 lg:grid-cols-4"}`}>
-          {p.media.map((m, k) => (
-            <ProjectMedia key={m.src} media={m} n={k + 1} label={p.title} />
-          ))}
+          {p.media.map((m, k) => {
+            const ok = availableProjectMedia.has(m.poster ?? m.src);
+            const contained = /assembly-platformer|light2d/.test(m.src);
+            return (
+              <Figure key={m.src} n={k + 1} caption={m.caption ?? p.title}>
+                {ok ? (
+                  <ProjectMedia
+                    id={p.slug}
+                    poster={m.poster ?? m.src}
+                    gif={m.src.endsWith(".gif") ? m.src : undefined}
+                    alt={m.alt}
+                    named={k === 0}
+                    fit={contained ? "contain" : "cover"}
+                    pixelated={m.src.includes("assembly")}
+                  />
+                ) : (
+                  <div className="flex aspect-[16/9] items-center justify-center p-6 text-center font-mono text-xs text-muted">media slot: {m.src}</div>
+                )}
+              </Figure>
+            );
+          })}
         </div>
       )}
 
@@ -81,5 +103,6 @@ export default async function ProjectPage({ params }: Props) {
         </Link>
       </nav>
     </article>
+    </ViewTransition>
   );
 }

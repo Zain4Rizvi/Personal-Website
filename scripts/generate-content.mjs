@@ -19,10 +19,9 @@ const projects = projectFiles.map((file) => {
   };
 }).sort((a, b) => a.order - b.order);
 
+const mediaPath = (src) => path.join(root, "public", src.replace(/^\/+/, "").replaceAll("/", path.sep));
 const availableProjectMedia = projects.flatMap((project) =>
-  project.media
-    .map((media) => media.src)
-    .filter((src) => fs.existsSync(path.join(root, "public", src.replace(/^\/+/, "").replaceAll("/", path.sep)))),
+  project.media.flatMap((media) => [media.src, media.poster].filter((src) => src && fs.existsSync(mediaPath(src)))),
 );
 const projectBodyHtml = Object.fromEntries(projects.map((project) => [
   project.slug,

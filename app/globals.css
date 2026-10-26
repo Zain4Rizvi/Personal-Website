@@ -12,6 +12,22 @@
   --color-accent: #3ddc97;
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 280ms;
+  --duration-slow: 450ms;
+  --duration-scene: 800ms;
+  --default-transition-duration: var(--duration-fast);
+  --default-transition-timing-function: var(--ease-out);
+}
+
+.animate-pulse {
+  animation-duration: var(--duration-slow);
+  animation-timing-function: var(--ease-out);
 }
 
 html {
@@ -35,6 +51,101 @@ a { text-underline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+    animation-duration: 0s !important;
+  }
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(8px); }
+}
+html.boot .enter {
+  animation: enter var(--duration-scene) var(--ease-out) backwards;
+  animation-delay: min(calc(var(--i, 0) * 70ms), 900ms);
+}
+
+.work-card { transition: opacity var(--duration-fast) var(--ease-out); }
+.work-media { transition: transform var(--duration-base) var(--ease-out); }
+.work-title { position: relative; display: inline-block; }
+.work-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+.work-title::after {
+  content: "→";
+  position: absolute;
+  left: calc(100% + 0.35rem);
+  top: 50%;
+  opacity: 0;
+  transform: translate(-6px, -50%);
+  transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .work-list:hover .work-card { opacity: 0.5; }
+  .work-list:hover .work-card:hover { opacity: 1; }
+  .work-card:hover .work-media { transform: translateY(-4px); }
+  .work-card:hover .work-title::before { transform: scaleX(1); }
+  .work-card:hover .work-title::after { opacity: 1; transform: translate(0, -50%); }
+}
+.work-list:has(:focus-visible) .work-card { opacity: 0.5; }
+.work-list:has(:focus-visible) .work-card:is(:focus-visible, :focus-within) { opacity: 1; }
+.work-card:focus-visible .work-media { transform: translateY(-4px); }
+.work-card:focus-visible .work-title::before { transform: scaleX(1); }
+.work-card:focus-visible .work-title::after { opacity: 1; transform: translate(0, -50%); }
+
+::view-transition { pointer-events: none; background: #000; }
+::view-transition-old(root) { display: none; }
+::view-transition-new(root) { animation: none; }
+::view-transition-old(.lift) {
+  animation: vt-out 220ms var(--ease-out) both;
+}
+::view-transition-new(.rise) {
+  animation: vt-in var(--duration-scene) var(--ease-out) both;
+}
+::view-transition-old(.fade) {
+  animation: vt-fade 200ms var(--ease-out) reverse both;
+}
+::view-transition-new(.fade) {
+  animation: vt-fade 200ms var(--ease-out) both;
+}
+::view-transition-group(.project-media) {
+  animation-duration: 350ms;
+  animation-timing-function: cubic-bezier(.2, .8, .2, 1);
+}
+::view-transition-old(.project-media),
+::view-transition-new(.project-media) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: normal;
+}
+::view-transition-new(.project-media) {
+  opacity: 1;
+  display: block;
+}
+@keyframes vt-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes vt-in {
+  0% { opacity: 0; transform: translateY(8px); }
+  55% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes vt-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Case-study prose */

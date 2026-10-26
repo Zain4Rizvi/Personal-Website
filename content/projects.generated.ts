@@ -39,6 +39,7 @@ export const projects: import("@/lib/content").Project[] = [
       {
         "type": "image",
         "src": "/media/robotics-vla/demo.gif",
+        "poster": "/media/robotics-vla/demo.webp",
         "alt": "Looping clip of the robot arm simulation following a language command",
         "caption": "Simulation: the arm following a command"
       },
@@ -74,6 +75,7 @@ export const projects: import("@/lib/content").Project[] = [
       {
         "type": "image",
         "src": "/media/rocket-league-analyzer/sim.gif",
+        "poster": "/media/rocket-league-analyzer/sim.webp",
         "alt": "Looping 3D replay: cars and the ball on the pitch, with coverage, centroid and pressure overlays plus the coach console",
         "caption": "Replay simulation"
       },
@@ -110,6 +112,7 @@ export const projects: import("@/lib/content").Project[] = [
       {
         "type": "image",
         "src": "/media/maple-market/demo.gif",
+        "poster": "/media/maple-market/demo.webp",
         "alt": "Shopify's past-year price line drawing in, then Royal Bank, Shopify and Enbridge compared on price, profit, growth, dividend and steadiness, then Enbridge's dividend chart",
         "caption": "A price replay, a three-stock comparison, then dividends"
       }
@@ -209,6 +212,7 @@ export const projects: import("@/lib/content").Project[] = [
       {
         "type": "image",
         "src": "/media/assembly-platformer/play.gif",
+        "poster": "/media/assembly-platformer/play.webp",
         "alt": "The assembly platformer being played: the character runs, double jumps between platforms, picks up three items, and clears the level",
         "caption": "Playthrough on the 64 x 64 bitmap display"
       }
@@ -301,14 +305,18 @@ export const projectBodyHtml: Record<string, string> = {
 
 export const availableProjectMedia = new Set<string>([
   "/media/robotics-vla/demo.gif",
+  "/media/robotics-vla/demo.webp",
   "/media/robotics-vla/model.webp",
   "/media/rocket-league-analyzer/sim.gif",
+  "/media/rocket-league-analyzer/sim.webp",
   "/media/rocket-league-analyzer/site.png",
   "/media/maple-market/demo.gif",
+  "/media/maple-market/demo.webp",
   "/media/stickdrift/gallery-5.jpg",
   "/media/stickdrift/gallery-2.jpg",
   "/media/stickdrift/card.jpg",
   "/media/assembly-platformer/play.gif",
+  "/media/assembly-platformer/play.webp",
   "/media/light2d/scene.webp",
   "/media/light2d/dispersion.webp"
 ]);

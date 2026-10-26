@@ -33,12 +33,12 @@ export default function Hero({
   const degree = education.degrees[0];
   return (
     <section aria-label="Introduction" className="px-5 pb-4 pt-16 md:px-10 md:pt-24">
-      <h1 className="max-w-[42rem] text-4xl font-normal leading-[1.15] tracking-[-1px] sm:text-[3.5rem] sm:leading-[1.2]">
+      <h1 className="enter max-w-[42rem] text-4xl font-normal leading-[1.15] tracking-[-1px] sm:text-[3.5rem] sm:leading-[1.2]" style={{ "--i": 1 } as React.CSSProperties}>
         ML Engineer and builder
       </h1>
-      <p className="mt-4 text-lg italic">{p.tagline}</p>
+      <p className="enter mt-4 text-lg italic" style={{ "--i": 2 } as React.CSSProperties}>{p.tagline}</p>
       <div className="mt-16 grid gap-10 sm:grid-cols-2 sm:gap-16">
-        <div>
+        <div className="enter" style={{ "--i": 3 } as React.CSSProperties}>
           <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Education</h2>
           {degree && (
             <div className="mt-4">
@@ -46,7 +46,7 @@ export default function Hero({
             </div>
           )}
         </div>
-        <div>
+        <div className="enter" style={{ "--i": 4 } as React.CSSProperties}>
           <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Experience</h2>
           <ul className="mt-4 space-y-3">
             {experience.map((e) => (
@@ -56,7 +56,7 @@ export default function Hero({
             ))}
           </ul>
         </div>
-        <div className="sm:col-span-2">
+        <div className="enter sm:col-span-2" style={{ "--i": 5 } as React.CSSProperties}>
           <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Awards</h2>
           <ul className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-10">
             {education.awards.map((a) => (
