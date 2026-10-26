@@ -110,8 +110,8 @@ export const projects: import("@/lib/content").Project[] = [
       {
         "type": "image",
         "src": "/media/maple-market/demo.gif",
-        "alt": "Looping tour of Maple Market: the TSX sky of orbiting planets, a Shopify company card, then the market heatmap",
-        "caption": "The sky, a company card, then the heatmap"
+        "alt": "Shopify's past-year price line drawing in, then Royal Bank, Shopify and Enbridge compared on price, profit, growth, dividend and steadiness, then Enbridge's dividend chart",
+        "caption": "A price replay, a three-stock comparison, then dividends"
       }
     ],
     "featured": true,
