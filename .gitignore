@@ -17,6 +17,7 @@
 !/tsconfig.json
 !/app/
 !/components/
+!/hooks/
 !/content/
 !/lib/
 !/public/
