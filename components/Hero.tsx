@@ -33,7 +33,7 @@ export default function Hero({
   const degree = education.degrees[0];
   return (
     <section aria-label="Introduction" className="px-5 pb-4 pt-16 md:px-10 md:pt-24">
-      <h1 className="enter max-w-[42rem] text-4xl font-normal leading-[1.15] tracking-[-1px] sm:text-[3.5rem] sm:leading-[1.2]" style={{ "--i": 1 } as React.CSSProperties}>
+      <h1 className="hero-title enter max-w-[42rem] text-4xl font-normal leading-[1.15] sm:text-[3.5rem] sm:leading-[1.2]" style={{ "--i": 1 } as React.CSSProperties}>
         ML Engineer and builder
       </h1>
       <p className="enter mt-4 text-lg italic" style={{ "--i": 2 } as React.CSSProperties}>{p.tagline}</p>

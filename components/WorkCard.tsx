@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { startTransition } from "react";
+import { useCardSpotlight } from "@/hooks/useCardSpotlight";
 import ProjectMedia, { armProjectArrive } from "./ProjectMedia";
 
 function pinScroll() {
@@ -37,6 +38,7 @@ export default function WorkCard({
   bg: string;
 }) {
   const router = useRouter();
+  const mediaRef = useCardSpotlight<HTMLDivElement>();
   const href = `/projects/${slug}`;
 
   async function onClick(e: React.MouseEvent<HTMLAnchorElement>) {
@@ -52,7 +54,7 @@ export default function WorkCard({
 
   return (
     <Link href={href} scroll={false} transitionTypes={["to-project"]} onClick={onClick} className="work-card block">
-      <div className={`work-media overflow-hidden rounded-2xl ${bg}`}>
+      <div ref={mediaRef} className={`work-media overflow-hidden rounded-2xl ${bg}`}>
         {poster ? (
           <ProjectMedia id={slug} poster={poster} gif={gif} alt={alt} named fit={fit} pixelated={pixelated} />
         ) : (

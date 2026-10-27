@@ -2,16 +2,30 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
-import { getProfile } from "@/lib/content";
+import { getProfile, getProjects } from "@/lib/content";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+import Spotlight from "@/components/Spotlight";
+import ScrollProgress from "@/components/ScrollProgress";
+import CommandPalette from "@/components/CommandPalette";
 
 // Self-hosted variable fonts (latin subset), no build-time network fetch.
 const sans = localFont({ src: "./fonts/inter-tight.woff2", weight: "100 900", variable: "--font-inter-tight", display: "swap" });
 const mono = localFont({ src: "./fonts/jetbrains-mono.woff2", weight: "100 800", variable: "--font-jetbrains-mono", display: "swap" });
 
 const p = getProfile();
+const paletteProjects = getProjects()
+  .filter((project) => project.featured)
+  .map((project) => {
+    const media = project.media[0];
+    return {
+      title: project.title,
+      slug: project.slug,
+      summary: project.summary,
+      poster: media?.poster ?? media?.src,
+    };
+  });
 
 export const metadata: Metadata = {
   metadataBase: new URL(p.siteUrl),
@@ -27,17 +41,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" data-scroll-behavior="smooth" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
         <Script id="boot-enter" strategy="beforeInteractive">
-          {`(function(){var r=document.documentElement;r.classList.add("boot");var stop=function(){r.classList.remove("boot")};var arm=function(){setTimeout(stop,1800)};if(document.readyState==="loading")addEventListener("DOMContentLoaded",arm);else arm();addEventListener("click",function(e){var t=e.target;if(t&&t.closest&&t.closest("a"))stop()},true);addEventListener("popstate",stop)})()`}
+          {`(function(){var r=document.documentElement;r.classList.add("boot","js");var stop=function(){r.classList.remove("boot")};var arm=function(){setTimeout(stop,1800)};if(document.readyState==="loading")addEventListener("DOMContentLoaded",arm);else arm();addEventListener("click",function(e){var t=e.target;if(t&&t.closest&&t.closest("a"))stop()},true);addEventListener("popstate",stop)})()`}
         </Script>
+        <Spotlight />
+        <ScrollProgress />
+        <CommandPalette
+          projects={paletteProjects}
+          resume={p.links.resume}
+          github={p.links.github}
+          linkedin={p.links.linkedin}
+          homeDescription={p.tagline}
+        >
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-accent focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-bg"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[75] focus:bg-accent focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-bg"
         >
           Skip to content
         </a>
         <Nav profile={p} />
         <main id="main">{children}</main>
         <Footer profile={p} />
+        </CommandPalette>
         <Analytics />
       </body>
     </html>

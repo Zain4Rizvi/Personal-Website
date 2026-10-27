@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Profile } from "@/lib/content";
+import { CommandHint } from "./CommandPalette";
 import IconLinks from "./IconLinks";
 
 export default function Nav({ profile }: { profile: Profile }) {
@@ -26,8 +27,11 @@ export default function Nav({ profile }: { profile: Profile }) {
         >
           {profile.name}
         </Link>
-        <div className={pill}>
-          <IconLinks profile={profile} />
+        <div className="flex items-center gap-3">
+          <CommandHint />
+          <div className={pill}>
+            <IconLinks profile={profile} />
+          </div>
         </div>
       </nav>
     </header>
