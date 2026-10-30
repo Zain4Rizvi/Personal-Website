@@ -1,4 +1,4 @@
-import type { Education, Experience, Profile } from "@/lib/content";
+import type { Education, Experience } from "@/lib/content";
 
 const role = (r: string) => r.replace(/\s*\([^)]*\)$/, "");
 const logos: Record<string, string> = {
@@ -22,21 +22,21 @@ function oxford(items: string[]) {
 }
 
 export default function Hero({
-  profile: p,
   experience,
   education,
 }: {
-  profile: Profile;
   experience: Experience[];
   education: Education;
 }) {
   const degree = education.degrees[0];
   return (
     <section aria-label="Introduction" className="px-5 pb-4 pt-16 md:px-10 md:pt-24">
-      <h1 className="hero-title enter max-w-[42rem] text-4xl font-normal leading-[1.15] sm:text-[3.5rem] sm:leading-[1.2]" style={{ "--i": 1 } as React.CSSProperties}>
-        ML Engineer and builder
+      <h1 className="hero-title enter whitespace-nowrap text-[clamp(0.9rem,4.5vw,3.5rem)] font-normal" style={{ "--i": 1 } as React.CSSProperties}>
+        Making Complex Systems Visible
       </h1>
-      <p className="enter mt-4 text-lg italic" style={{ "--i": 2 } as React.CSSProperties}>{p.tagline}</p>
+      <p className="enter mt-4 max-w-[42rem] text-lg italic" style={{ "--i": 2 } as React.CSSProperties}>
+      Bringing data, algorithms, and simulations to life through interactive visualization.
+      </p>
       <div className="mt-16 grid gap-10 sm:grid-cols-2 sm:gap-16">
         <div className="enter" style={{ "--i": 3 } as React.CSSProperties}>
           <h2 className="text-[11px] uppercase tracking-[0.16em] text-muted">Education</h2>

@@ -8,7 +8,7 @@
   "links": {
     "linkedin": "https://linkedin.com/in/zain4rizvi",
     "github": "https://github.com/Zain4Rizvi",
-    "resume": "/resume.pdf"
+    "resume": "/Zain%20Rizvi%20Resume.pdf"
   },
   "metrics": [
     { "value": "75%", "label": "forecast error cut", "detail": "4% to 1% MAPE" },

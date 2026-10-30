@@ -25,4 +25,4 @@ Full structured data (profile, experience, education, skills, projects with case
 - Songify: 1st place, AMACSS AI Olympics Hackathon
 
 ## Resume
-/resume.pdf
+/Zain%20Rizvi%20Resume.pdf
