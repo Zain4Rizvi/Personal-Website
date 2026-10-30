@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08090d;
+      --graphite: #1a1d24;
+      --silver: #c8d1dc;
+      --paper: #eef2f6;
+      --blue: #397dff;
+      --orange: #ff8759;
+      --glow: rgba(200, 209, 220, .14);
+      --pad: 64px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--paper);
+      font-family: "Instrument Sans", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(460px circle at var(--mx, 78%) var(--my, 34%), var(--glow), transparent 68%);
+    }
+    header, main, footer { position: relative; z-index: 1; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--silver); outline-offset: 3px; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px var(--pad);
+      background: rgba(8, 9, 13, .9);
+      border-bottom: 1px solid #242830;
+    }
+    .word { font-family: "Instrument Serif", serif; font-style: italic; font-size: 22px; text-decoration: none; }
+    header nav { display: flex; gap: 26px; }
+    header nav a { text-decoration: none; color: var(--silver); font-size: 14px; }
+    header nav a:hover { color: white; }
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 66px);
+      padding: 48px var(--pad) 32px;
+      display: flex;
+      align-items: end;
+      overflow: hidden;
+    }
+    .hero-copy { position: relative; z-index: 2; max-width: 640px; padding-bottom: 24px; }
+    .eye { margin: 0 0 18px; letter-spacing: .22em; text-transform: uppercase; font-size: 12px; color: var(--silver); }
+    h1 {
+      margin: 0;
+      font-family: "Instrument Serif", serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(4.4rem, 8vw, 7.1rem);
+      line-height: .84;
+      letter-spacing: -.035em;
+    }
+    .lede { margin: 22px 0 0; max-width: 36ch; color: var(--silver); font-size: 17px; }
+    .cta { display: flex; gap: 28px; margin-top: 26px; }
+    .cta a { text-decoration: none; border-bottom: 1px solid var(--silver); padding-bottom: 2px; }
+    .cta a.hot { border-bottom-color: var(--orange); color: var(--orange); }
+    .mercury {
+      position: absolute; right: -30px; top: 6vh;
+      width: 540px; height: 540px; border-radius: 50%; overflow: hidden;
+      background:
+        radial-gradient(circle at 32% 28%, #fff 0%, #e7eef6 10%, transparent 26%),
+        radial-gradient(circle at 72% 74%, #12141a 0%, transparent 46%),
+        radial-gradient(circle at 48% 52%, #b7c2cf, #3a414c 46%, #12141a 70%, #08090d 80%);
+      box-shadow: inset -30px -20px 50px rgba(0,0,0,.55), inset 10px 8px 20px rgba(255,255,255,.18), 0 40px 80px rgba(0,0,0,.45);
+    }
+    .bands, .mercury::after {
+      position: absolute; inset: -45%;
+      mix-blend-mode: screen;
+    }
+    .bands {
+      background: conic-gradient(from 200deg, transparent 0 84%, rgba(57,125,255,.85) 87.5%, #fff 89.5%, rgba(255,135,89,.8) 92%, transparent 95.5% 100%);
+      animation: spin 26s linear infinite;
+    }
+    .mercury::after {
+      content: "";
+      background: conic-gradient(from 20deg, transparent 0 90%, rgba(255,255,255,.7) 93%, transparent 96% 100%);
+      animation: spin 42s linear infinite reverse;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #work { padding: 10px var(--pad) 20px; }
+    .kicker { margin: 0 0 8px; letter-spacing: .2em; text-transform: uppercase; font-size: 12px; color: var(--silver); }
+    .row {
+      display: grid;
+      grid-template-columns: 52px 1fr 180px;
+      gap: 22px;
+      align-items: center;
+      padding: 18px 0;
+      border-top: 1px solid #2a2f38;
+      text-decoration: none;
+    }
+    .row:last-child { border-bottom: 1px solid #2a2f38; }
+    .row:hover { border-color: var(--silver); }
+    .row:hover + .row { border-top-color: var(--silver); }
+    .num { color: var(--silver); font-variant-numeric: tabular-nums; font-size: 13px; }
+    .row h3 { margin: 0; font-family: "Instrument Serif", serif; font-weight: 400; font-size: 32px; letter-spacing: -.02em; }
+    .row p { margin: 4px 0 0; color: var(--silver); font-size: 14px; max-width: 70ch; }
+    .thumb { aspect-ratio: 16/10; overflow: hidden; background: #111; box-shadow: inset 0 0 0 1px #343b46; }
+    #about { padding: 72px var(--pad); display: grid; grid-template-columns: .7fr 1.3fr; gap: 48px; }
+    #about h2 { margin: 8px 0 0; font-family: "Instrument Serif", serif; font-weight: 400; font-style: italic; font-size: 48px; line-height: .95; }
+    .spec { display: grid; gap: 0; }
+    .spec div { display: grid; grid-template-columns: 160px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid #2a2f38; }
+    .spec dt { color: var(--silver); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+    .spec dd { margin: 0; }
+    footer {
+      padding: 28px var(--pad) 40px;
+      display: flex; justify-content: space-between; align-items: end;
+      border-top: 1px solid #2a2f38;
+    }
+    .mail { font-family: "Instrument Serif", serif; font-style: italic; font-size: 36px; text-decoration: none; }
+    footer nav { display: flex; gap: 20px; }
+    footer nav a { color: var(--silver); text-decoration: none; }
+    footer nav a:hover { color: white; }
+    @media (max-width: 980px) {
+      :root { --pad: 20px; }
+      .mercury { width: 280px; height: 280px; opacity: .85; }
+      .row, #about, .spec div { grid-template-columns: 1fr; }
+      header nav { display: none; }
+      h1 { font-size: 3.4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="word" href="#top">Zain Rizvi</a>
+    <nav aria-label="Primary">
+      <a href="#work">Projects</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-label="Introduction">
+      <div class="hero-copy">
+        <p class="eye">ML engineer and builder</p>
+        <h1>Making<br>Complex<br>Systems<br>Visible</h1>
+        <p class="lede">Bringing data, algorithms, and simulations to life through interactive visualization.</p>
+        <div class="cta">
+          <a href="#work">View projects</a>
+          <a class="hot" href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        </div>
+      </div>
+      <!-- ponytail: CSS stand-in for a liquid-metal render; replace with a real 3D asset if this direction is chosen -->
+      <div class="mercury" aria-hidden="true"><div class="bands"></div></div>
+    </section>
+    <section id="work">
+      <p class="kicker">Selected work</p>
+      <a class="row" href="https://zainrizvi.ca/projects/robotics-vla" target="_blank" rel="noopener">
+        <span class="num">01</span>
+        <span>
+          <h3>Robotics VLA</h3>
+          <p>Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator.</p>
+        </span>
+        <span class="thumb"><img src="../public/media/robotics-vla/demo.webp" alt="Robot arm simulation following a language command"></span>
+      </a>
+      <a class="row" href="https://zainrizvi.ca/projects/rocket-league-analyzer" target="_blank" rel="noopener">
+        <span class="num">02</span>
+        <span>
+          <h3>Rocket League Analyzer</h3>
+          <p>A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback.</p>
+        </span>
+        <span class="thumb"><img src="../public/media/rocket-league-analyzer/sim.webp" alt="3D replay of cars and the ball on the pitch"></span>
+      </a>
+      <a class="row" href="https://zainrizvi.ca/projects/maple-market" target="_blank" rel="noopener">
+        <span class="num">03</span>
+        <span>
+          <h3>Maple Market</h3>
+          <p>A visual explorer for big Canadian stocks: TSX companies as planets, a heatmap, and plain-English tools for compare, dividends, and compound growth.</p>
+        </span>
+        <span class="thumb"><img src="../public/media/maple-market/demo.webp" alt="Maple Market price replay and stock comparison"></span>
+      </a>
+      <a class="row" href="https://zainrizvi.ca/projects/stickdrift" target="_blank" rel="noopener">
+        <span class="num">04</span>
+        <span>
+          <h3>StickDrift</h3>
+          <p>A PS5-controller movement check disguised as games for long-term care.</p>
+        </span>
+        <span class="thumb"><img src="../public/media/stickdrift/gallery-5.jpg" alt="Harbour Fishing, played with one stick at a time"></span>
+      </a>
+      <a class="row" href="https://zainrizvi.ca/projects/assembly-platformer" target="_blank" rel="noopener">
+        <span class="num">05</span>
+        <span>
+          <h3>Assembly Platformer</h3>
+          <p>An 8-bit platformer written entirely in MIPS assembly, playable in the browser.</p>
+        </span>
+        <span class="thumb"><img src="../public/media/assembly-platformer/play.webp" alt="The assembly platformer being played on a 64 by 64 display"></span>
+      </a>
+      <a class="row" href="https://zainrizvi.ca/projects/light2d" target="_blank" rel="noopener">
+        <span class="num">06</span>
+        <span>
+          <h3>Light2D: Dispersion in 2D</h3>
+          <p>A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows.</p>
+        </span>
+        <span class="thumb"><img src="assets/light2d.svg" alt="Glass lens splitting a beam into a spectrum"></span>
+      </a>
+    </section>
+    <section id="about">
+      <div>
+        <p class="kicker">About</p>
+        <h2>The work is the material.</h2>
+        <p class="lede" style="margin-top:18px">I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.</p>
+      </div>
+      <div class="spec" id="experience">
+        <div><dt>Also</dt><dd>I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end.</dd></div>
+        <div><dt>Education</dt><dd>Honours BSc, Computer Science and Mathematics, University of Toronto. Sep 2022 – Aug 2026.</dd></div>
+        <div><dt>Purolator</dt><dd>Data Scientist Intern, Mississauga, May 2025 – Dec 2025. Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.</dd></div>
+        <div><dt>MTO</dt><dd>Data Analyst Intern, Toronto, May 2024 – Aug 2024. Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).</dd></div>
+        <div><dt>Awards</dt><dd>AI Olympics 1st Place Winner · Hack the Valley 9 Award Winner · MTO Road Safety Solutions, 2nd place · UofT Frank Faubert Scholarship. Also competed in Battle of the Schools (UofT and Waterloo), Putnam Math Competition 2023, and Hack the Valley 11.</dd></div>
+      </div>
+    </section>
+  </main>
+  <footer id="contact">
+    <a class="mail" href="mailto:zain4rizvi@gmail.com">zain4rizvi@gmail.com</a>
+    <nav aria-label="Contact">
+      <a href="https://linkedin.com/in/zain4rizvi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Zain4Rizvi" target="_blank" rel="noopener">GitHub</a>
+      <a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </footer>
+  <script src="assets/pointer.js"></script>
+</body>
+</html>

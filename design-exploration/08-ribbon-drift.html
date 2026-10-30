@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body { margin: 0; color: #f4f7fb; font-family: "Instrument Sans", sans-serif; font-size: 16px; line-height: 1.5; background: #07111f; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    img { display: block; max-width: 100%; }
+    .field { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #07111f; }
+    .field img { position: absolute; width: 170%; max-width: none; height: 160%; left: -35%; top: -28%; object-fit: cover; animation: pan 46s ease-in-out infinite alternate; }
+    @keyframes pan { from { transform: translate3d(0, -6%, 0); } to { transform: translate3d(-16%, 12%, 0); } }
+    header, main, footer { position: relative; z-index: 1; }
+    header { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; background: linear-gradient(rgba(5,8,18,.55), transparent); }
+    .word, header nav a, footer a { text-decoration: none; }
+    header nav { display: flex; gap: 22px; }
+    header nav a { font-size: 14px; text-shadow: 0 1px 8px #000; }
+    .col { width: min(640px, calc(100% - 80px)); margin: 0 0 0 40px; padding-bottom: 48px; }
+    .hero { min-height: calc(100vh - 70px); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px 0 64px; }
+    .eye { margin: 0 0 12px; letter-spacing: .16em; text-transform: uppercase; font-size: 12px; }
+    h1 { margin: 0; max-width: 11ch; font-weight: 500; font-size: clamp(3rem, 5vw, 4.5rem); line-height: .94; letter-spacing: -.04em; text-shadow: 0 8px 28px rgba(0,0,0,.55); }
+    .lede { margin: 16px 0 0; max-width: 36ch; text-shadow: 0 2px 12px #000; }
+    .cta { display: flex; gap: 22px; margin-top: 22px; }
+    .btn { background: #f4f7fb; color: #07111f; text-decoration: none; padding: 10px 14px; font-weight: 600; }
+    .ghost { align-self: center; text-decoration: underline; text-underline-offset: 4px; }
+    h2 { margin: 0 0 8px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; font-weight: 500; }
+    .work { display: grid; grid-template-columns: 1fr 132px; gap: 16px; align-items: center; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.22); text-decoration: none; }
+    .work:last-of-type { border-bottom: 1px solid rgba(255,255,255,.22); }
+    .work h3 { margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
+    .work p { margin: 4px 0 0; color: #e7edf5; font-size: 14px; text-shadow: 0 1px 8px #000; }
+    .thumb { aspect-ratio: 16/10; overflow: hidden; background: #000; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    #about { margin-top: 48px; max-width: 58ch; }
+    #about p { margin: 0 0 12px; text-shadow: 0 1px 8px #000; }
+    .role { margin: 18px 0; }
+    .role strong { display: block; }
+    .meta { color: #d5deea; font-size: 13px; }
+    footer { display: flex; justify-content: space-between; gap: 16px; width: min(640px, calc(100% - 80px)); margin: 0 0 28px 40px; padding-top: 18px; }
+    footer nav { display: flex; gap: 16px; }
+    @media (max-width: 800px) { header nav { display: none; } .work { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .field img { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="field" aria-hidden="true"><img src="assets/dir-08-ribbon.jpg" alt=""></div>
+  <header>
+    <a class="word" href="#top">Zain Rizvi</a>
+    <nav aria-label="Primary">
+      <a href="#work">Projects</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="top">
+    <div class="col">
+      <section class="hero" aria-label="Introduction">
+        <p class="eye">ML engineer and builder</p>
+        <h1>Making Complex Systems Visible</h1>
+        <p class="lede">Bringing data, algorithms, and simulations to life through interactive visualization.</p>
+        <div class="cta">
+          <a class="btn" href="#work">View projects</a>
+          <a class="ghost" href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        </div>
+      </section>
+      <section id="work">
+        <h2>Selected work</h2>
+        <a class="work" href="https://zainrizvi.ca/projects/robotics-vla" target="_blank" rel="noopener"><span><h3>Robotics VLA</h3><p>Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator.</p></span><span class="thumb"><img src="../public/media/robotics-vla/demo.webp" alt="Robot arm simulation following a language command"></span></a>
+        <a class="work" href="https://zainrizvi.ca/projects/rocket-league-analyzer" target="_blank" rel="noopener"><span><h3>Rocket League Analyzer</h3><p>A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback.</p></span><span class="thumb"><img src="../public/media/rocket-league-analyzer/sim.webp" alt="3D replay of cars and the ball on the pitch"></span></a>
+        <a class="work" href="https://zainrizvi.ca/projects/maple-market" target="_blank" rel="noopener"><span><h3>Maple Market</h3><p>A visual explorer for big Canadian stocks: TSX companies as planets, a heatmap, and plain-English tools for compare, dividends, and compound growth.</p></span><span class="thumb"><img src="../public/media/maple-market/demo.webp" alt="Maple Market price replay and stock comparison"></span></a>
+        <a class="work" href="https://zainrizvi.ca/projects/stickdrift" target="_blank" rel="noopener"><span><h3>StickDrift</h3><p>A PS5-controller movement check disguised as games for long-term care.</p></span><span class="thumb"><img src="../public/media/stickdrift/gallery-5.jpg" alt="Harbour Fishing, played with one stick at a time"></span></a>
+        <a class="work" href="https://zainrizvi.ca/projects/assembly-platformer" target="_blank" rel="noopener"><span><h3>Assembly Platformer</h3><p>An 8-bit platformer written entirely in MIPS assembly, playable in the browser.</p></span><span class="thumb"><img src="../public/media/assembly-platformer/play.webp" alt="The assembly platformer on a 64 by 64 display"></span></a>
+        <a class="work" href="https://zainrizvi.ca/projects/light2d" target="_blank" rel="noopener"><span><h3>Light2D: Dispersion in 2D</h3><p>A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows.</p></span><span class="thumb"><img src="assets/light2d.svg" alt="Glass lens splitting a beam into a spectrum"></span></a>
+      </section>
+      <section id="about">
+        <h2>About</h2>
+        <p>I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.</p>
+        <p>I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end.</p>
+        <p>Honours BSc, Computer Science and Mathematics, University of Toronto. Sep 2022 – Aug 2026.</p>
+        <p>AI Olympics 1st Place Winner · Hack the Valley 9 Award Winner · MTO Road Safety Solutions, 2nd place · UofT Frank Faubert Scholarship. Also competed in Battle of the Schools (UofT and Waterloo), Putnam Math Competition 2023, and Hack the Valley 11.</p>
+        <div id="experience">
+          <article class="role"><strong>Data Scientist Intern, Purolator Inc.</strong><span class="meta">Mississauga, ON · May 2025 – Dec 2025</span><p>Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.</p></article>
+          <article class="role"><strong>Data Analyst Intern, Ontario Ministry of Transportation</strong><span class="meta">Toronto, ON · May 2024 – Aug 2024</span><p>Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).</p></article>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer id="contact">
+    <a href="mailto:zain4rizvi@gmail.com">zain4rizvi@gmail.com</a>
+    <nav aria-label="Contact">
+      <a href="https://linkedin.com/in/zain4rizvi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Zain4Rizvi" target="_blank" rel="noopener">GitHub</a>
+      <a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,460;12..96,560&family=Sora:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #101326;
+      --violet: #252347;
+      --cyan: #36ddf2;
+      --orange: #ff7947;
+      --magenta: #f34baa;
+      --paper: #f5f0ea;
+      --muted: #ddd4cb;
+      --glow: rgba(255, 121, 71, .22);
+      --pad: 56px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--paper);
+      font-family: Sora, sans-serif;
+      font-size: 15.5px;
+      line-height: 1.55;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(480px circle at var(--mx, 78%) var(--my, 30%), var(--glow), transparent 70%);
+    }
+    header, main, footer { position: relative; z-index: 1; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px var(--pad);
+      background: rgba(16, 19, 38, .92);
+      border-bottom: 1px solid rgba(245, 240, 234, .1);
+    }
+    .word { font-family: "Bricolage Grotesque", sans-serif; font-weight: 560; font-size: 18px; text-decoration: none; letter-spacing: -.03em; }
+    header nav { display: flex; gap: 24px; }
+    header nav a { text-decoration: none; font-size: 13px; color: var(--muted); }
+    header nav a:hover { color: var(--cyan); }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, .9fr);
+      gap: 12px;
+      align-items: center;
+      min-height: calc(100vh - 62px);
+      padding: 20px var(--pad) 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .eye { margin: 0 0 16px; color: var(--cyan); font-size: 13px; letter-spacing: .16em; text-transform: uppercase; }
+    h1 {
+      margin: 0;
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 560;
+      font-size: clamp(3.1rem, 5.4vw, 5.3rem);
+      line-height: .9;
+      letter-spacing: -.045em;
+      max-width: 10ch;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--orange); }
+    .lede { margin: 20px 0 0; max-width: 36ch; color: var(--muted); font-size: 17px; }
+    .cta { display: flex; gap: 22px; align-items: center; margin-top: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; height: 46px; padding: 0 16px;
+      background: var(--orange); color: #101326; text-decoration: none; font-weight: 500; border-radius: 2px;
+    }
+    .btn:hover { filter: brightness(1.06); }
+    .mag { color: var(--magenta); text-underline-offset: 5px; }
+    .rig { position: relative; height: 520px; }
+    .rig::before {
+      content: "";
+      position: absolute;
+      inset: 70px 40px 90px 50px;
+      background: linear-gradient(145deg, rgba(54,221,242,.55), rgba(255,121,71,.4) 48%, rgba(243,75,170,.45));
+      filter: blur(42px);
+      border-radius: 46% 54% 48% 52%;
+    }
+    .liquid { position: absolute; inset: 10px 0 0; animation: roll 22s ease-in-out infinite; }
+    .liquid svg { width: 100%; height: 100%; overflow: visible; }
+    @keyframes roll {
+      0%, 100% { transform: rotate(-8deg) translateY(0); }
+      50% { transform: rotate(9deg) translateY(10px); }
+    }
+    #work { padding: 28px var(--pad) 20px; }
+    .kicker { margin: 0; color: var(--cyan); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+    h2 { margin: 8px 0 22px; font-family: "Bricolage Grotesque", sans-serif; font-weight: 560; font-size: 36px; letter-spacing: -.04em; }
+    .bento { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 26px 18px; }
+    .bento a { text-decoration: none; color: inherit; display: flex; flex-direction: column; min-width: 0; }
+    .p1 { grid-column: 1; grid-row: 1 / span 2; }
+    .p6 { grid-column: 1 / -1; display: grid; grid-template-columns: 300px 1fr; gap: 22px; align-items: center; }
+    .thumb { overflow: hidden; background: #0b0d18; aspect-ratio: 16/10; }
+    .p1 .thumb { aspect-ratio: auto; min-height: 460px; flex: 1; }
+    .thumb img { transition: transform .7s cubic-bezier(.16,1,.3,1); }
+    a:hover .thumb img { transform: scale(1.04); }
+    .bento h3 { margin: 12px 0 6px; font-family: "Bricolage Grotesque", sans-serif; font-size: 24px; font-weight: 560; letter-spacing: -.03em; }
+    .p1 h3 { font-size: 34px; }
+    .bento p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .tags { display: block; margin-top: 8px; color: var(--cyan); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+    #about { background: var(--violet); padding: 72px var(--pad); margin-top: 64px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
+    #about p { margin: 0 0 14px; color: var(--muted); }
+    .role { margin-bottom: 20px; padding-left: 14px; border-left: 2px solid var(--orange); }
+    .role:last-child { border-left-color: var(--magenta); }
+    .role strong { display: block; color: var(--paper); font-size: 18px; }
+    .meta { display: block; margin: 4px 0 8px; font-size: 13px; color: #c9c2ea; }
+    footer {
+      padding: 36px var(--pad) 42px;
+      display: flex; justify-content: space-between; gap: 20px; align-items: end;
+    }
+    .mail { font-family: "Bricolage Grotesque", sans-serif; font-size: 28px; text-decoration: none; letter-spacing: -.03em; }
+    footer nav { display: flex; gap: 20px; }
+    footer nav a { text-decoration: none; color: var(--muted); }
+    footer nav a:hover { color: var(--cyan); }
+    .fine { margin: 8px 0 0; color: #b7b2c9; font-size: 13px; }
+    @media (max-width: 980px) {
+      :root { --pad: 20px; }
+      .hero, .bento, .about-grid, .p6 { grid-template-columns: 1fr; }
+      .p1 { grid-row: auto; }
+      header nav { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="word" href="#top">Zain Rizvi</a>
+    <nav aria-label="Primary">
+      <a href="#work">Projects</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-label="Introduction">
+      <div>
+        <p class="eye">ML engineer and builder</p>
+        <h1>Making Complex Systems <em>Visible</em></h1>
+        <p class="lede">Bringing data, algorithms, and simulations to life through interactive visualization.</p>
+        <div class="cta">
+          <a class="btn" href="#work">View projects</a>
+          <a class="mag" href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        </div>
+      </div>
+      <!-- ponytail: CSS/SVG stand-in for a rendered liquid form; replace with a real 3D asset if this direction is chosen -->
+      <div class="rig" aria-hidden="true">
+        <div class="liquid">
+          <svg viewBox="0 0 400 440">
+            <defs>
+              <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#b8fbff"/>
+                <stop offset=".34" stop-color="#36ddf2"/>
+                <stop offset=".62" stop-color="#ff7947"/>
+                <stop offset="1" stop-color="#f34baa"/>
+              </linearGradient>
+              <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
+                <stop offset=".4" stop-color="#fff" stop-opacity="0"/>
+              </linearGradient>
+              <filter id="liq" x="-15%" y="-15%" width="130%" height="130%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="2" result="n">
+                  <animate attributeName="baseFrequency" dur="16s" values="0.007;0.011;0.008;0.007" repeatCount="indefinite"/>
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="10"/>
+              </filter>
+            </defs>
+            <path filter="url(#liq)" fill="url(#lg)" d="M206 36c78 8 138 78 126 162-8 58-36 86-24 140 14 62-46 96-112 90-74-6-128-54-136-120-10-74 16-108 12-162C66 78 124 26 206 36z"/>
+            <path filter="url(#liq)" fill="url(#shine)" d="M146 92c46-28 104-8 118 36 8 24-16 42-52 34-40-8-78-6-66-70z"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+    <section id="work">
+      <p class="kicker">Selected work</p>
+      <h2>Projects</h2>
+      <div class="bento">
+        <a class="p1" href="https://zainrizvi.ca/projects/robotics-vla" target="_blank" rel="noopener">
+          <div class="thumb"><img src="../public/media/robotics-vla/demo.webp" alt="Robot arm simulation following a language command"></div>
+          <h3>Robotics VLA</h3>
+          <p>Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator.</p>
+          <span class="tags">PyTorch · SmolVLA · MuJoCo</span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/rocket-league-analyzer" target="_blank" rel="noopener">
+          <div class="thumb"><img src="../public/media/rocket-league-analyzer/sim.webp" alt="3D replay of cars and the ball on the pitch"></div>
+          <h3>Rocket League Analyzer</h3>
+          <p>A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback.</p>
+          <span class="tags">LangChain · Docker</span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/maple-market" target="_blank" rel="noopener">
+          <div class="thumb"><img src="../public/media/maple-market/demo.webp" alt="Maple Market price replay and stock comparison"></div>
+          <h3>Maple Market</h3>
+          <p>A visual explorer for big Canadian stocks: TSX companies as planets, a heatmap, and plain-English tools for compare, dividends, and compound growth.</p>
+          <span class="tags">Next.js · Three.js</span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/stickdrift" target="_blank" rel="noopener">
+          <div class="thumb"><img src="../public/media/stickdrift/gallery-5.jpg" alt="Harbour Fishing, played with one stick at a time"></div>
+          <h3>StickDrift</h3>
+          <p>A PS5-controller movement check disguised as games for long-term care.</p>
+          <span class="tags">Three.js · FastAPI</span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/assembly-platformer" target="_blank" rel="noopener">
+          <div class="thumb"><img src="../public/media/assembly-platformer/play.webp" alt="The assembly platformer being played on a 64 by 64 display"></div>
+          <h3>Assembly Platformer</h3>
+          <p>An 8-bit platformer written entirely in MIPS assembly, playable in the browser.</p>
+          <span class="tags">MIPS assembly</span>
+        </a>
+        <a class="p6" href="https://zainrizvi.ca/projects/light2d" target="_blank" rel="noopener">
+          <div class="thumb"><img src="assets/light2d.svg" alt="Glass lens splitting a beam into a spectrum"></div>
+          <div>
+            <h3>Light2D: Dispersion in 2D</h3>
+            <p>A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows.</p>
+            <span class="tags">C · Optics · Fresnel</span>
+          </div>
+        </a>
+      </div>
+    </section>
+    <section id="about">
+      <p class="kicker">About</p>
+      <div class="about-grid">
+        <div>
+          <h2>A person who owns the problem</h2>
+          <p>I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.</p>
+          <p>I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end.</p>
+          <p>Honours BSc, Computer Science and Mathematics, University of Toronto. Sep 2022 – Aug 2026.</p>
+          <p>AI Olympics 1st Place Winner · Hack the Valley 9 Award Winner · MTO Road Safety Solutions, 2nd place · UofT Frank Faubert Scholarship</p>
+          <p>Also competed in Battle of the Schools (UofT and Waterloo), Putnam Math Competition 2023, and Hack the Valley 11.</p>
+        </div>
+        <div id="experience">
+          <article class="role">
+            <strong>Data Scientist Intern, Purolator Inc.</strong>
+            <span class="meta">Mississauga, ON · May 2025 – Dec 2025</span>
+            <p>Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.</p>
+          </article>
+          <article class="role">
+            <strong>Data Analyst Intern, Ontario Ministry of Transportation</strong>
+            <span class="meta">Toronto, ON · May 2024 – Aug 2024</span>
+            <p>Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer id="contact">
+    <div>
+      <a class="mail" href="mailto:zain4rizvi@gmail.com">zain4rizvi@gmail.com</a>
+      <p class="fine">© Zain Rizvi</p>
+    </div>
+    <nav aria-label="Contact">
+      <a href="mailto:zain4rizvi@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/zain4rizvi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Zain4Rizvi" target="_blank" rel="noopener">GitHub</a>
+      <a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </footer>
+  <script src="assets/pointer.js"></script>
+</body>
+</html>

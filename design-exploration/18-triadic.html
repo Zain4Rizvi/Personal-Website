@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,560&family=Sora:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+    body { margin: 0; background: #101326; color: #f5f0ea; font-family: Sora, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid #36ddf2; outline-offset: 3px; }
+    .field { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .field i { position: absolute; width: 46vw; height: 46vw; border-radius: 50%; filter: blur(36px); opacity: .8; }
+    .c { background: #36ddf2; left: -8vw; top: -6vh; animation: c 34s ease-in-out infinite alternate; }
+    .o { background: #ff7947; right: -10vw; top: 24vh; animation: o 42s ease-in-out infinite alternate; }
+    .m { background: #f34baa; left: 28vw; bottom: -20vh; animation: m 38s ease-in-out infinite alternate; }
+    @keyframes c { to { transform: translate3d(22vw, 28vh, 0); } }
+    @keyframes o { to { transform: translate3d(-18vw, 12vh, 0); } }
+    @keyframes m { to { transform: translate3d(-8vw, -24vh, 0); } }
+    header, main, footer { position: relative; z-index: 1; }
+    header { position: sticky; top: 0; display: flex; justify-content: space-between; padding: 16px 32px; background: linear-gradient(#101326, rgba(16,19,38,.4), transparent); }
+    header nav { display: flex; gap: 18px; }
+    header nav a:hover { color: #36ddf2; }
+    .hero { padding: 12vh 32px 8vh; width: min(640px, 100%); }
+    h1 { max-width: 8ch; }
+    h1 { margin: 0; font-family: "Bricolage Grotesque", sans-serif; font-weight: 560; font-size: clamp(3.4rem, 7vw, 6rem); line-height: .88; letter-spacing: -.045em; text-shadow: 0 10px 28px rgba(0,0,0,.45); }
+    .lede { margin: 16px 0 0; max-width: 34ch; text-shadow: 0 2px 10px rgba(0,0,0,.65); }
+    .cta { display: flex; gap: 18px; margin-top: 18px; }
+    .go { color: #36ddf2; border-bottom: 1px solid #36ddf2; }
+    .wrap { width: min(920px, calc(100% - 64px)); margin: 0 auto 36px; }
+    .row { display: grid; grid-template-columns: 56px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid rgba(245,240,234,.22); }
+    .num { color: #ff7947; font-variant-numeric: tabular-nums; text-shadow: 0 1px 8px #000; }
+    .row h3 { margin: 0; font-family: "Bricolage Grotesque", sans-serif; font-size: 28px; font-weight: 560; text-shadow: 0 4px 16px rgba(0,0,0,.55); }
+    .row p { margin: 4px 0 0; color: #f5f0ea; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+    #about { margin-top: 28px; padding-top: 20px; border-top: 2px solid #f34baa; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    #about p { margin: 0 0 10px; text-shadow: 0 1px 8px rgba(0,0,0,.65); }
+    .role strong { display: block; }
+    .meta { font-size: 13px; color: #36ddf2; }
+    footer { display: flex; justify-content: space-between; padding-top: 16px; }
+    footer nav { display: flex; gap: 14px; }
+    @media (max-width: 800px) { #about { grid-template-columns: 1fr; } header nav { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .field i { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="field" aria-hidden="true"><i class="c"></i><i class="o"></i><i class="m"></i></div>
+  <header>
+    <a href="#top">Zain Rizvi</a>
+    <nav aria-label="Primary"><a href="#work">Projects</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#contact">Contact</a></nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-label="Introduction">
+      <h1>Making Complex Systems Visible</h1>
+      <p class="lede">Bringing data, algorithms, and simulations to life through interactive visualization.</p>
+      <div class="cta"><a class="go" href="#work">View projects</a><a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a></div>
+    </section>
+    <div class="wrap">
+      <section id="work">
+        <a class="row" href="https://zainrizvi.ca/projects/robotics-vla" target="_blank" rel="noopener"><span class="num">01</span><span><h3>Robotics VLA</h3><p>Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator.</p></span></a>
+        <a class="row" href="https://zainrizvi.ca/projects/rocket-league-analyzer" target="_blank" rel="noopener"><span class="num">02</span><span><h3>Rocket League Analyzer</h3><p>A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback.</p></span></a>
+        <a class="row" href="https://zainrizvi.ca/projects/maple-market" target="_blank" rel="noopener"><span class="num">03</span><span><h3>Maple Market</h3><p>A visual explorer for big Canadian stocks: TSX companies as planets, a heatmap, and plain-English tools for compare, dividends, and compound growth.</p></span></a>
+        <a class="row" href="https://zainrizvi.ca/projects/stickdrift" target="_blank" rel="noopener"><span class="num">04</span><span><h3>StickDrift</h3><p>A PS5-controller movement check disguised as games for long-term care.</p></span></a>
+        <a class="row" href="https://zainrizvi.ca/projects/assembly-platformer" target="_blank" rel="noopener"><span class="num">05</span><span><h3>Assembly Platformer</h3><p>An 8-bit platformer written entirely in MIPS assembly, playable in the browser.</p></span></a>
+        <a class="row" href="https://zainrizvi.ca/projects/light2d" target="_blank" rel="noopener"><span class="num">06</span><span><h3>Light2D: Dispersion in 2D</h3><p>A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows.</p></span></a>
+      </section>
+      <section id="about">
+        <div>
+          <p>I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.</p>
+          <p>I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end.</p>
+        </div>
+        <div id="experience">
+          <article class="role"><strong>Data Scientist Intern, Purolator Inc.</strong><span class="meta">Mississauga · May 2025 – Dec 2025</span><p>Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.</p></article>
+          <article class="role"><strong>Data Analyst Intern, Ontario Ministry of Transportation</strong><span class="meta">Toronto · May 2024 – Aug 2024</span><p>Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).</p></article>
+        </div>
+      </section>
+      <footer id="contact">
+        <a href="mailto:zain4rizvi@gmail.com">zain4rizvi@gmail.com</a>
+        <nav aria-label="Contact"><a href="https://linkedin.com/in/zain4rizvi" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Zain4Rizvi" target="_blank" rel="noopener">GitHub</a><a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a></nav>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

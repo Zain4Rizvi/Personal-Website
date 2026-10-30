@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Unbounded:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080d1b;
+      --cobalt: #245bff;
+      --deep: #142b68;
+      --orange: #ff7138;
+      --paper: #f3f4f7;
+      --muted: #c5ceda;
+      --dim: #9eabbe;
+      --glow: rgba(36, 91, 255, .32);
+      --pad: 64px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(900px 520px at 82% 18%, rgba(36, 91, 255, .2), transparent 62%),
+        radial-gradient(520px 360px at 8% 88%, rgba(255, 113, 56, .07), transparent 60%),
+        var(--bg);
+      color: var(--paper);
+      font-family: Manrope, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(560px circle at var(--mx, 74%) var(--my, 28%), var(--glow), transparent 64%);
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 30;
+      opacity: .045;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    header, main, footer { position: relative; z-index: 1; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px var(--pad);
+      background: rgba(8, 13, 27, .88);
+      border-bottom: 1px solid rgba(243, 244, 247, .1);
+    }
+    .word { font-family: Unbounded, sans-serif; font-size: 14px; letter-spacing: .02em; text-decoration: none; }
+    header nav { display: flex; gap: 28px; }
+    header nav a { text-decoration: none; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    header nav a:hover { color: white; }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(380px, .9fr);
+      gap: 12px;
+      align-items: center;
+      min-height: calc(100vh - 64px);
+      padding: 28px var(--pad) 56px;
+    }
+    .eye { margin: 0 0 18px; color: #d5e0ff; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
+    h1 {
+      margin: 0;
+      font-family: Unbounded, sans-serif;
+      font-weight: 500;
+      font-size: clamp(2.6rem, 4.3vw, 4.15rem);
+      line-height: .98;
+      letter-spacing: -.03em;
+      max-width: 11ch;
+      text-wrap: balance;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(100deg, #f7fbff, #b7c8ff 28%, #ffd0c2 52%, #fff 78%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lede { margin: 22px 0 0; max-width: 38ch; color: var(--muted); font-size: 18px; }
+    .cta { display: flex; align-items: center; gap: 28px; margin-top: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      height: 46px;
+      padding: 0 18px;
+      background: var(--cobalt);
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: .04em;
+      border-radius: 2px;
+    }
+    .btn:hover { background: #3d6dff; }
+    .ghost { color: var(--paper); text-underline-offset: 6px; text-decoration-color: var(--orange); }
+    .stage { position: relative; height: 560px; }
+    .spin {
+      position: absolute;
+      inset: 36px;
+      transform-style: preserve-3d;
+      animation: spin 28s linear infinite;
+    }
+    .spin.slow { inset: 8px; animation-duration: 40s; animation-direction: reverse; }
+    .band {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 20deg, #f7f8fb, #9eb6ff 40deg, #245bff 90deg, #e7eeff 140deg, #f6e7ff 170deg, #ffd2c2 200deg, #ff7138 230deg, #fff 260deg, #c9b8ff 300deg, #7f9cff 340deg, #f7f8fb 360deg);
+      -webkit-mask: radial-gradient(circle, transparent 61%, #000 63.5%, #000 71%, transparent 73.5%);
+      mask: radial-gradient(circle, transparent 61%, #000 63.5%, #000 71%, transparent 73.5%);
+      filter: drop-shadow(0 18px 16px rgba(36, 91, 255, .28));
+    }
+    .spin.slow .band {
+      background: conic-gradient(from 0deg, transparent, rgba(255,255,255,.85) 12%, transparent 24%, rgba(36,91,255,.7) 48%, transparent 60%, rgba(255,255,255,.7) 80%, transparent);
+      -webkit-mask: radial-gradient(circle, transparent 68%, #000 70%, #000 74%, transparent 76%);
+      mask: radial-gradient(circle, transparent 68%, #000 70%, #000 74%, transparent 76%);
+      filter: none;
+    }
+    .shadow {
+      position: absolute;
+      left: 16%;
+      right: 16%;
+      bottom: 48px;
+      height: 36px;
+      background: radial-gradient(ellipse, rgba(36, 91, 255, .5), transparent 70%);
+      filter: blur(8px);
+    }
+    .spark {
+      position: absolute;
+      width: 84px;
+      height: 5px;
+      right: 64px;
+      bottom: 168px;
+      background: linear-gradient(90deg, transparent, var(--orange), transparent);
+      transform: rotate(-16deg);
+    }
+    @keyframes spin {
+      from { transform: rotateX(66deg) rotateZ(0deg); }
+      to { transform: rotateX(66deg) rotateZ(360deg); }
+    }
+    .rule { height: 1px; margin: 0 var(--pad); background: linear-gradient(90deg, transparent, rgba(243,244,247,.28), transparent); }
+    #work, #about { padding: 72px var(--pad) 24px; }
+    .kicker { margin: 0 0 8px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #d5e0ff; }
+    h2 { margin: 0 0 28px; font-family: Unbounded, sans-serif; font-weight: 500; font-size: 28px; letter-spacing: -.03em; }
+    .work {
+      display: grid;
+      grid-template-columns: 56px 1fr 220px;
+      gap: 28px;
+      align-items: center;
+      padding: 22px 8px;
+      border-top: 1px solid rgba(243, 244, 247, .12);
+      text-decoration: none;
+      position: relative;
+    }
+    .work:last-child { border-bottom: 1px solid rgba(243, 244, 247, .12); }
+    .work:hover { background: linear-gradient(90deg, transparent, rgba(20, 43, 104, .72), transparent); }
+    .idx { color: var(--orange); font-size: 13px; letter-spacing: .14em; font-variant-numeric: tabular-nums; }
+    .t { display: block; font-size: 22px; letter-spacing: -.02em; }
+    .s { display: block; margin-top: 6px; max-width: 68ch; color: var(--muted); font-size: 15px; line-height: 1.45; }
+    .tags { display: block; margin-top: 8px; color: #d5def0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .thumb { aspect-ratio: 16/10; overflow: hidden; background: #05070f; }
+    .thumb img { transition: transform .7s cubic-bezier(.16,1,.3,1); }
+    .work:hover .thumb img { transform: scale(1.05); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .about-grid p { margin: 0 0 14px; color: var(--muted); max-width: 58ch; }
+    .role { margin: 0 0 22px; }
+    .role strong { display: block; font-size: 18px; color: var(--paper); font-weight: 600; }
+    .meta { display: block; margin: 4px 0 8px; color: var(--dim); font-size: 13px; letter-spacing: .04em; }
+    .role p { margin: 0; }
+    .awards { margin-top: 8px; color: var(--paper); }
+    footer {
+      margin-top: 48px;
+      padding: 48px var(--pad) 36px;
+      border-top: 1px solid rgba(243, 244, 247, .12);
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+    }
+    .mail { font-family: Unbounded, sans-serif; font-size: clamp(1.4rem, 2.4vw, 2rem); text-decoration: none; letter-spacing: -.03em; }
+    footer nav { display: flex; gap: 22px; }
+    footer nav a { text-decoration: none; color: var(--muted); }
+    footer nav a:hover { color: white; }
+    .fine { margin: 8px 0 0; color: var(--dim); font-size: 13px; }
+    @media (max-width: 980px) {
+      :root { --pad: 24px; }
+      .hero, .about-grid, .work { grid-template-columns: 1fr; }
+      .stage { height: 420px; }
+      header nav { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="word" href="#top">Zain Rizvi</a>
+    <nav aria-label="Primary">
+      <a href="#work">Projects</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-label="Introduction">
+      <div>
+        <p class="eye">ML engineer and builder</p>
+        <h1>Making Complex Systems <em>Visible</em></h1>
+        <p class="lede">Bringing data, algorithms, and simulations to life through interactive visualization.</p>
+        <div class="cta">
+          <a class="btn" href="#work">View projects</a>
+          <a class="ghost" href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        </div>
+      </div>
+      <!-- ponytail: CSS stand-in for a rendered sculpture; replace with a real 3D asset if this direction is chosen -->
+      <div class="stage" aria-hidden="true">
+        <div class="spin slow"><div class="band"></div></div>
+        <div class="spin"><div class="band"></div></div>
+        <div class="shadow"></div>
+        <div class="spark"></div>
+      </div>
+    </section>
+    <div class="rule"></div>
+    <section id="work" aria-label="Selected work">
+      <p class="kicker">Selected work</p>
+      <h2>Six builds</h2>
+      <a class="work" href="https://zainrizvi.ca/projects/robotics-vla" target="_blank" rel="noopener">
+        <span class="idx">01</span>
+        <span>
+          <span class="t">Robotics VLA</span>
+          <span class="s">Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator.</span>
+          <span class="tags">PyTorch · SmolVLA · MuJoCo</span>
+        </span>
+        <span class="thumb"><img src="../public/media/robotics-vla/demo.webp" alt="Robot arm simulation following a language command"></span>
+      </a>
+      <a class="work" href="https://zainrizvi.ca/projects/rocket-league-analyzer" target="_blank" rel="noopener">
+        <span class="idx">02</span>
+        <span>
+          <span class="t">Rocket League Analyzer</span>
+          <span class="s">A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback.</span>
+          <span class="tags">LangChain · Docker · 3D dashboard</span>
+        </span>
+        <span class="thumb"><img src="../public/media/rocket-league-analyzer/sim.webp" alt="3D replay of cars and the ball on the pitch"></span>
+      </a>
+      <a class="work" href="https://zainrizvi.ca/projects/maple-market" target="_blank" rel="noopener">
+        <span class="idx">03</span>
+        <span>
+          <span class="t">Maple Market</span>
+          <span class="s">A visual explorer for big Canadian stocks: TSX companies as planets, a heatmap, and plain-English tools for compare, dividends, and compound growth.</span>
+          <span class="tags">Next.js · Three.js · Recharts</span>
+        </span>
+        <span class="thumb"><img src="../public/media/maple-market/demo.webp" alt="Maple Market price replay and stock comparison"></span>
+      </a>
+      <a class="work" href="https://zainrizvi.ca/projects/stickdrift" target="_blank" rel="noopener">
+        <span class="idx">04</span>
+        <span>
+          <span class="t">StickDrift</span>
+          <span class="s">A PS5-controller movement check disguised as games for long-term care.</span>
+          <span class="tags">Three.js · Gamepad API · FastAPI</span>
+        </span>
+        <span class="thumb"><img src="../public/media/stickdrift/gallery-5.jpg" alt="Harbour Fishing, played with one stick at a time"></span>
+      </a>
+      <a class="work" href="https://zainrizvi.ca/projects/assembly-platformer" target="_blank" rel="noopener">
+        <span class="idx">05</span>
+        <span>
+          <span class="t">Assembly Platformer</span>
+          <span class="s">An 8-bit platformer written entirely in MIPS assembly, playable in the browser.</span>
+          <span class="tags">MIPS assembly · sms32v50</span>
+        </span>
+        <span class="thumb"><img src="../public/media/assembly-platformer/play.webp" alt="The assembly platformer being played on a 64 by 64 display"></span>
+      </a>
+      <a class="work" href="https://zainrizvi.ca/projects/light2d" target="_blank" rel="noopener">
+        <span class="idx">06</span>
+        <span>
+          <span class="t">Light2D: Dispersion in 2D</span>
+          <span class="s">A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows.</span>
+          <span class="tags">C · Optics · Fresnel</span>
+        </span>
+        <span class="thumb"><img src="assets/light2d.svg" alt="Glass lens splitting a beam into a spectrum"></span>
+      </a>
+    </section>
+    <section id="about" aria-label="About and experience">
+      <p class="kicker">About</p>
+      <h2>Statistics, software, and the picture in between</h2>
+      <div class="about-grid">
+        <div>
+          <p>I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.</p>
+          <p>I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end.</p>
+          <p>Honours BSc, Computer Science and Mathematics, University of Toronto. Sep 2022 – Aug 2026.</p>
+          <p class="awards">AI Olympics 1st Place Winner · Hack the Valley 9 Award Winner · MTO Road Safety Solutions, 2nd place · UofT Frank Faubert Scholarship</p>
+          <p>Also competed in Battle of the Schools (UofT and Waterloo), Putnam Math Competition 2023, and Hack the Valley 11.</p>
+        </div>
+        <div id="experience">
+          <article class="role">
+            <strong>Data Scientist Intern, Purolator Inc.</strong>
+            <span class="meta">Mississauga, ON · May 2025 – Dec 2025</span>
+            <p>Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.</p>
+          </article>
+          <article class="role">
+            <strong>Data Analyst Intern, Ontario Ministry of Transportation</strong>
+            <span class="meta">Toronto, ON · May 2024 – Aug 2024</span>
+            <p>Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer id="contact">
+    <div>
+      <a class="mail" href="mailto:zain4rizvi@gmail.com">zain4rizvi@gmail.com</a>
+      <p class="fine">© Zain Rizvi</p>
+    </div>
+    <nav aria-label="Contact">
+      <a href="mailto:zain4rizvi@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/zain4rizvi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Zain4Rizvi" target="_blank" rel="noopener">GitHub</a>
+      <a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </footer>
+  <script src="assets/pointer.js"></script>
+</body>
+</html>

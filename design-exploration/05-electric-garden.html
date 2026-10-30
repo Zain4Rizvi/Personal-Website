@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1715;
+      --green: #1b3029;
+      --lime: #c7ff45;
+      --blue: #4c75ff;
+      --lav: #b79aff;
+      --mint: #c9f3de;
+      --paper: #f3f7f4;
+      --muted: #c9ddd4;
+      --glow: rgba(199, 255, 69, .16);
+      --pad: 60px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(800px 500px at 12% 20%, rgba(27, 48, 41, .9), transparent 60%),
+        var(--bg);
+      color: var(--paper);
+      font-family: Syne, sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(420px circle at var(--mx, 22%) var(--my, 40%), var(--glow), transparent 70%);
+    }
+    header, main, footer { position: relative; z-index: 1; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px var(--pad);
+      background: rgba(13, 23, 21, .92);
+      border-bottom: 1px solid rgba(201, 243, 222, .12);
+    }
+    .word { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -.03em; }
+    .sq { width: 8px; height: 8px; background: var(--lime); display: inline-block; }
+    header nav { display: flex; gap: 24px; font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .04em; }
+    header nav a { text-decoration: none; color: var(--mint); }
+    header nav a:hover { color: var(--lime); }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(340px, .9fr) minmax(0, 1.05fr);
+      gap: 20px;
+      align-items: center;
+      min-height: calc(100vh - 64px);
+      padding: 12px var(--pad) 36px;
+    }
+    .org { position: relative; width: min(460px, 100%); height: 500px; margin: 0 auto; }
+    .blob {
+      position: absolute; inset: 46px;
+      background:
+        radial-gradient(circle at 36% 38%, #f3ffb0 0 8%, #c7ff45 16%, transparent 34%),
+        radial-gradient(circle at 66% 56%, #9eb4ff 0 8%, #4c75ff 18%, transparent 38%),
+        radial-gradient(circle at 48% 74%, #ddd0ff 0 7%, #b79aff 16%, transparent 34%),
+        radial-gradient(circle at 50% 50%, rgba(201,243,222,.4), rgba(13,23,21,.15) 72%);
+      animation: morph 18s ease-in-out infinite;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.38), inset 18px 12px 28px rgba(255,255,255,.16), inset -20px -16px 30px rgba(0,0,0,.35);
+    }
+    .glass {
+      position: absolute; inset: 46px;
+      background: linear-gradient(160deg, rgba(255,255,255,.34), transparent 42%, rgba(255,255,255,.06));
+      mix-blend-mode: screen;
+      animation: morph 18s ease-in-out infinite;
+      border: 1px solid rgba(201, 243, 222, .35);
+    }
+    .ticks { position: absolute; inset: 0; animation: spin 48s linear infinite; }
+    .dot {
+      position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px;
+      background: var(--lime); border-radius: 50%;
+    }
+    @keyframes morph {
+      0%, 100% { border-radius: 58% 42% 52% 48% / 46% 54% 42% 58%; }
+      50% { border-radius: 42% 58% 40% 60% / 58% 38% 62% 42%; transform: rotate(8deg) scale(1.04); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .eye { margin: 0 0 14px; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--lime); letter-spacing: .08em; }
+    h1 { margin: 0; font-weight: 700; font-size: clamp(3rem, 5vw, 4.8rem); line-height: .9; letter-spacing: -.045em; max-width: 9ch; }
+    h1 em { font-style: normal; color: var(--lime); }
+    .lede { margin: 18px 0 0; max-width: 34ch; color: var(--muted); font-weight: 500; }
+    .cta { display: flex; gap: 22px; align-items: center; margin-top: 28px; }
+    .btn { background: var(--lime); color: #0d1715; text-decoration: none; padding: 12px 16px; font-weight: 700; }
+    .btn:hover { filter: brightness(1.05); }
+    .ghost { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--mint); }
+    .mark { width: 48px; height: 3px; background: var(--lime); margin: 8px var(--pad) 0; }
+    #work { padding: 64px var(--pad) 80px; }
+    .kicker { margin: 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--lime); }
+    h2 { margin: 8px 0 28px; font-size: 32px; letter-spacing: -.04em; }
+    .works { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 28px; }
+    .works a:nth-child(even) { transform: translateY(40px); }
+    .works a { text-decoration: none; display: block; }
+    .num { font-family: "IBM Plex Mono", monospace; color: var(--lime); font-size: 12px; }
+    .thumb { aspect-ratio: 16/10; overflow: hidden; background: #08110f; margin-top: 8px; }
+    .thumb img { transition: transform .6s ease; }
+    .works a:hover .thumb img { transform: scale(1.04); }
+    .works h3 { margin: 12px 0 6px; font-size: 26px; letter-spacing: -.03em; }
+    .works p { margin: 0; color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 13px; line-height: 1.5; }
+    #about { background: var(--green); padding: 72px var(--pad); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    #about p { margin: 0 0 14px; color: var(--mint); }
+    .role { margin: 0 0 20px; padding-top: 12px; border-top: 1px solid rgba(199,255,69,.35); }
+    .role strong { display: block; font-size: 20px; }
+    .meta { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--lime); }
+    footer {
+      padding: 32px var(--pad) 40px;
+      display: flex; justify-content: space-between; gap: 16px; align-items: end;
+    }
+    .mail { font-weight: 700; font-size: 26px; text-decoration: none; letter-spacing: -.03em; }
+    footer nav { display: flex; gap: 18px; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+    footer nav a { color: var(--mint); text-decoration: none; }
+    footer nav a:hover { color: var(--lime); }
+    .fine { margin: 8px 0 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: #8eaa9e; }
+    @media (max-width: 980px) {
+      :root { --pad: 20px; }
+      .hero, .works, .split { grid-template-columns: 1fr; }
+      .works a:nth-child(even) { transform: none; }
+      header nav { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="word" href="#top"><i class="sq"></i>Zain Rizvi</a>
+    <nav aria-label="Primary">
+      <a href="#work">Projects</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-label="Introduction">
+      <!-- ponytail: CSS stand-in for a rendered organic form; replace with a real 3D asset if this direction is chosen -->
+      <div class="org" aria-hidden="true">
+        <svg class="ticks" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="47" fill="none" stroke="rgba(201,243,222,.35)" stroke-width=".35"/>
+          <circle cx="50" cy="50" r="47" fill="none" stroke="#c7ff45" stroke-width="1.15" stroke-dasharray="1.5 5.6"/>
+        </svg>
+        <div class="blob"></div>
+        <div class="glass"></div>
+        <div class="dot"></div>
+      </div>
+      <div>
+        <p class="eye">ML engineer and builder</p>
+        <h1>Making Complex Systems <em>Visible</em></h1>
+        <p class="lede">Bringing data, algorithms, and simulations to life through interactive visualization.</p>
+        <div class="cta">
+          <a class="btn" href="#work">View projects</a>
+          <a class="ghost" href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        </div>
+      </div>
+    </section>
+    <div class="mark"></div>
+    <section id="work">
+      <p class="kicker">01 — 06</p>
+      <h2>Selected work</h2>
+      <div class="works">
+        <a href="https://zainrizvi.ca/projects/robotics-vla" target="_blank" rel="noopener">
+          <span class="num">01</span>
+          <div class="thumb"><img src="../public/media/robotics-vla/demo.webp" alt="Robot arm simulation following a language command"></div>
+          <h3>Robotics VLA</h3>
+          <p>Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator.</p>
+        </a>
+        <a href="https://zainrizvi.ca/projects/rocket-league-analyzer" target="_blank" rel="noopener">
+          <span class="num">02</span>
+          <div class="thumb"><img src="../public/media/rocket-league-analyzer/sim.webp" alt="3D replay of cars and the ball on the pitch"></div>
+          <h3>Rocket League Analyzer</h3>
+          <p>A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback.</p>
+        </a>
+        <a href="https://zainrizvi.ca/projects/maple-market" target="_blank" rel="noopener">
+          <span class="num">03</span>
+          <div class="thumb"><img src="../public/media/maple-market/demo.webp" alt="Maple Market price replay and stock comparison"></div>
+          <h3>Maple Market</h3>
+          <p>A visual explorer for big Canadian stocks: TSX companies as planets, a heatmap, and plain-English tools for compare, dividends, and compound growth.</p>
+        </a>
+        <a href="https://zainrizvi.ca/projects/stickdrift" target="_blank" rel="noopener">
+          <span class="num">04</span>
+          <div class="thumb"><img src="../public/media/stickdrift/gallery-5.jpg" alt="Harbour Fishing, played with one stick at a time"></div>
+          <h3>StickDrift</h3>
+          <p>A PS5-controller movement check disguised as games for long-term care.</p>
+        </a>
+        <a href="https://zainrizvi.ca/projects/assembly-platformer" target="_blank" rel="noopener">
+          <span class="num">05</span>
+          <div class="thumb"><img src="../public/media/assembly-platformer/play.webp" alt="The assembly platformer being played on a 64 by 64 display"></div>
+          <h3>Assembly Platformer</h3>
+          <p>An 8-bit platformer written entirely in MIPS assembly, playable in the browser.</p>
+        </a>
+        <a href="https://zainrizvi.ca/projects/light2d" target="_blank" rel="noopener">
+          <span class="num">06</span>
+          <div class="thumb"><img src="assets/light2d.svg" alt="Glass lens splitting a beam into a spectrum"></div>
+          <h3>Light2D: Dispersion in 2D</h3>
+          <p>A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows.</p>
+        </a>
+      </div>
+    </section>
+    <section id="about">
+      <div class="split">
+        <div>
+          <p class="kicker">About</p>
+          <h2>Organic problems, exact tools</h2>
+          <p>I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.</p>
+          <p>I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end.</p>
+          <p>Honours BSc, Computer Science and Mathematics, University of Toronto. Sep 2022 – Aug 2026.</p>
+          <p>AI Olympics 1st Place Winner · Hack the Valley 9 Award Winner · MTO Road Safety Solutions, 2nd place · UofT Frank Faubert Scholarship</p>
+          <p>Also competed in Battle of the Schools (UofT and Waterloo), Putnam Math Competition 2023, and Hack the Valley 11.</p>
+        </div>
+        <div id="experience">
+          <article class="role">
+            <span class="meta">May 2025 – Dec 2025 · Mississauga</span>
+            <strong>Data Scientist Intern, Purolator Inc.</strong>
+            <p>Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.</p>
+          </article>
+          <article class="role">
+            <span class="meta">May 2024 – Aug 2024 · Toronto</span>
+            <strong>Data Analyst Intern, Ontario Ministry of Transportation</strong>
+            <p>Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer id="contact">
+    <div>
+      <a class="mail" href="mailto:zain4rizvi@gmail.com">zain4rizvi@gmail.com</a>
+      <p class="fine">© Zain Rizvi</p>
+    </div>
+    <nav aria-label="Contact">
+      <a href="mailto:zain4rizvi@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/zain4rizvi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Zain4Rizvi" target="_blank" rel="noopener">GitHub</a>
+      <a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </footer>
+  <script src="assets/pointer.js"></script>
+</body>
+</html>

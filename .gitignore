@@ -22,3 +22,5 @@
 !/lib/
 !/public/
 !/scripts/
+!/design-exploration/
+!/design-exploration/**

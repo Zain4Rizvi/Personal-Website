@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#121418"/>
+  <g stroke-linecap="round" fill="none">
+    <g stroke="#f4f1ea" stroke-width="2.2" opacity=".9">
+      <line x1="70" y1="500" x2="700" y2="500"/>
+      <line x1="70" y1="410" x2="688" y2="468"/>
+      <line x1="70" y1="590" x2="688" y2="532"/>
+      <line x1="120" y1="330" x2="676" y2="452"/>
+      <line x1="120" y1="670" x2="676" y2="548"/>
+    </g>
+    <g stroke-width="2.6">
+      <line x1="900" y1="455" x2="1520" y2="180" stroke="#ff5a4a"/>
+      <line x1="900" y1="478" x2="1520" y2="320" stroke="#ffb000"/>
+      <line x1="900" y1="500" x2="1520" y2="470" stroke="#e8ff6a"/>
+      <line x1="900" y1="522" x2="1520" y2="630" stroke="#3dffe0"/>
+      <line x1="900" y1="544" x2="1520" y2="800" stroke="#7c8cff"/>
+    </g>
+  </g>
+  <ellipse cx="800" cy="500" rx="78" ry="230" fill="rgba(186,220,255,.07)" stroke="rgba(255,255,255,.62)" stroke-width="3"/>
+  <ellipse cx="800" cy="500" rx="52" ry="196" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+  <circle cx="70" cy="500" r="7" fill="#fff"/>
+</svg>

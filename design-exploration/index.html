@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Direction study — Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      background: #12110f;
+      color: #f3efe6;
+      font-family: "Instrument Sans", sans-serif;
+      font-size: 14px;
+    }
+    aside {
+      width: 332px;
+      flex: none;
+      overflow: auto;
+      border-right: 1px solid #2c2a26;
+      padding: 22px 16px 32px;
+    }
+    .mark { margin: 0; font-family: "Instrument Serif", serif; font-style: italic; font-size: 22px; }
+    .sub { margin: 6px 0 16px; color: #b7b1a6; line-height: 1.4; }
+    .modes { display: flex; gap: 8px; margin-bottom: 14px; }
+    .modes button, .list button {
+      font: inherit;
+      color: inherit;
+      background: transparent;
+      border: 1px solid #3a3834;
+      cursor: pointer;
+    }
+    .modes button { padding: 6px 10px; }
+    .modes button[aria-pressed="true"] { background: #f3efe6; color: #12110f; border-color: #f3efe6; }
+    .list { display: flex; flex-direction: column; gap: 6px; }
+    .list button {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      text-align: left;
+      padding: 10px;
+      border-color: transparent;
+    }
+    .list button[aria-current="true"] { background: #1d1b18; border-color: #3a3834; }
+    .num { color: #b7b1a6; font-variant-numeric: tabular-nums; }
+    strong { display: block; font-weight: 560; }
+    .type { display: block; color: #b7b1a6; font-size: 12px; margin-top: 2px; }
+    .sw { display: flex; gap: 4px; margin-top: 6px; }
+    .sw i { width: 12px; height: 12px; border: 1px solid rgba(255,255,255,.25); }
+    .why { margin: 16px 4px 0; color: #d9d3c8; line-height: 1.45; }
+    .open { display: inline-block; margin-top: 12px; color: #f3efe6; }
+    .note { margin: 22px 4px 0; color: #8f897f; font-size: 12px; line-height: 1.45; }
+    main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .viewport { flex: 1; position: relative; overflow: hidden; background: #000; }
+    .scaler { position: absolute; top: 0; left: 0; width: 1440px; transform-origin: 0 0; }
+    .scaler iframe { width: 1440px; height: 900px; border: 0; display: block; background: #000; }
+    .grid {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 10px;
+      overflow: auto;
+      background: #0c0b0a;
+      flex: 1;
+    }
+    body.gridmode .viewport { display: none; }
+    body.gridmode .grid { display: grid; }
+    .cell { position: relative; overflow: hidden; background: #000; cursor: pointer; border: 0; padding: 0; }
+    .cell iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: 0; transform-origin: 0 0; pointer-events: none; }
+    .cell span {
+      position: absolute; left: 8px; bottom: 8px; z-index: 2;
+      background: rgba(0,0,0,.72); color: white; padding: 3px 6px; font-size: 12px;
+    }
+    :focus-visible { outline: 2px solid #f3efe6; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <aside>
+    <p class="mark">Directions</p>
+    <p class="sub">Nineteen directions, one file. Desktop frame is locked at 1440. Keys 1–9 switch. The rest are in the list. Scroll inside the frame.</p>
+    <div class="modes">
+      <button type="button" id="one" aria-pressed="true">One</button>
+      <button type="button" id="all" aria-pressed="false">All</button>
+    </div>
+    <div class="list" id="list"></div>
+    <p class="why" id="why"></p>
+    <a class="open" id="open" href="01-prismatic-voltage.html" target="_blank" rel="noopener">Open this direction</a>
+    <p class="note">Mockups only. The live site is unchanged. Motion is in the pages, not in a still.</p>
+  </aside>
+  <main>
+    <div class="viewport">
+      <div class="scaler"><iframe id="frame" title="Selected direction" src="01-prismatic-voltage.html"></iframe></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
+  <script>
+    const concepts = [
+      ["01-prismatic-voltage.html", "Prismatic Voltage", "Unbounded + Manrope", ["#080D1B", "#245BFF", "#FF7138", "#F3F4F7"], "Midnight navy, electric cobalt, and one hit of orange. A tilted iridescent ring turns slowly. The interface stays sharp so the metal carries the colour."],
+      ["02-holographic-lagoon.html", "Holographic Lagoon", "Newsreader + Outfit", ["#07191F", "#20E5D0", "#806BFF", "#FF5CB8"], "Near-black teal and a glass orb that picks up aqua, ultraviolet, and pink. Aqua is the only interface colour. The other hues stay in the reflections."],
+      ["03-cybernetic-sunset.html", "Cybernetic Sunset", "Bricolage Grotesque + Sora", ["#101326", "#36DDF2", "#FF7947", "#F34BAA"], "Indigo ground, with cyan, hot orange, and magenta sharing one liquid form. Wider type and a bento of work, closer to a creative-AI studio than a résumé."],
+      ["04-chromatic-glass.html", "Chromatic Glass", "Instrument Sans", ["#101216", "#397BFF", "#8BEAFF", "#F58FCF"], "Graphite, hairlines, and a single blue accent. A glass disc does the decorating. Everything else is spaced like a hardware page."],
+      ["05-electric-garden.html", "Electric Garden", "Syne + IBM Plex Mono", ["#0D1715", "#C7FF45", "#4C75FF", "#B79AFF"], "Forest black and acid lime, with blue and lavender trapped inside a translucent form. Mono labels keep the organic shape technical."],
+      ["06-liquid-chrome.html", "Liquid Chrome", "Instrument Serif", ["#08090D", "#C8D1DC", "#397DFF", "#FF8759"], "Black, silver, and a mercury sphere. Blue and orange show up only as light in the metal. The work is an index, not a grid of cards."],
+      ["07-editorial-tech.html", "Editorial Tech", "Fraunces + Familjen Grotesk", ["#11182B", "#F3EEE4", "#3F53FF", "#F45D42"], "Navy and ivory, set like a magazine. Vermilion and ultramarine are flat blocks. No glass. The personality is type, crop, and alignment."],
+      ["08-ribbon-drift.html", "Ribbon Drift", "Instrument Sans", ["#07111F", "#2F6BFF", "#FF4AD8", "#7A5CFF"], "A full-width iridescent ribbon pans behind the page. Type sits in a narrow column so the metal stays visible on both sides."],
+      ["09-through-the-work.html", "Through the Work", "Instrument Serif", ["#071018", "#35D6FF", "#FF4AD8", "#F6F8FC"], "The ribbon also drifts downward, passing behind the project list. Rows are type and a small image, so the surface shows through."],
+      ["10-folded-frame.html", "Folded Frame", "Syne + Outfit", ["#FF7A2F", "#FFB15A", "#8A1C08", "#0A0706"], "Orange folded metal is the ground. The site sits in one dark panel, and the metal keeps moving around it."],
+      ["11-field-light.html", "Field Light", "Outfit", ["#000000", "#19D6FF", "#FF2D78", "#F7F7F7"], "Oversized cyan and magenta fields drift across the black page, including behind the projects. Type stays in the dark gaps."],
+      ["12-glass-knot.html", "Glass Knot", "Instrument Sans", ["#000000", "#3EC8FF", "#FF4AD8", "#7DFF6A"], "A cropped glass knot fills the screen and pans behind a left-hand column. Magenta and green appear only in the reflections."],
+      ["13-letterpress.html", "Letterpress", "Fraunces", ["#11182B", "#F3EEE4", "#2F6BFF", "#FF4AD8"], "Editorial blocks of solid type sit on a moving ribbon. The word Visible is a hole, so the spectrum is the ink."],
+      ["14-louver.html", "Louver", "Instrument Serif", ["#05060A", "#FF4AD8", "#35D6FF", "#FF8759"], "The project list is a shutter. Black rows cover the ribbon, and the gaps between them are the material."],
+      ["15-complement.html", "Complement", "Unbounded + Manrope", ["#080D1B", "#245BFF", "#FF7138", "#FFB15A"], "Warm folded metal frames a cool navy instrument. Orange stays in the frame and one link. Cobalt runs the interface."],
+      ["16-acid-weather.html", "Acid Weather", "Syne + IBM Plex Mono", ["#0D1715", "#C7FF45", "#4C75FF", "#B79AFF"], "Lime, blue, and lavender are the weather, not an object. Mono labels keep the advancing yellow-green technical."],
+      ["17-quiet-glass.html", "Quiet Glass", "Instrument Sans", ["#000000", "#F1F2F5", "#8BEAFF", "#3EC8FF"], "The knot fills the screen. The interface uses one blue rule and does not sample the magenta out of the glass."],
+      ["18-triadic.html", "Triadic Passage", "Bricolage Grotesque + Sora", ["#101326", "#36DDF2", "#FF7947", "#F34BAA"], "Cyan, orange, and magenta each have a job: links, numbers, and light. The sunset is a system passing behind the work."],
+      ["19-ivory-interrupt.html", "Ivory Interrupt", "Instrument Serif + Familjen Grotesk", ["#08090D", "#F3EEE4", "#F45D42", "#C8D1DC"], "A black serif index is cut by one ivory chapter. Vermilion appears once. The drama is the shift from dark to light."]
+    ];
+    const list = document.getElementById("list");
+    const frame = document.getElementById("frame");
+    const why = document.getElementById("why");
+    const open = document.getElementById("open");
+    const grid = document.getElementById("grid");
+    let current = 0;
+
+    concepts.forEach((c, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      const label = String(i + 1).padStart(2, "0");
+      b.innerHTML = `<span class="num">${label}</span><span><strong>${c[1]}</strong><span class="type">${c[2]}</span><span class="sw">${c[3].map((hex) => `<i style="background:${hex}"></i>`).join("")}</span></span>`;
+      b.addEventListener("click", () => select(i));
+      list.appendChild(b);
+      const cell = document.createElement("button");
+      cell.type = "button";
+      cell.className = "cell";
+      cell.innerHTML = `<iframe title="${c[1]}" loading="lazy"></iframe><span>${label} ${c[1]}</span>`;
+      cell.addEventListener("click", () => { select(i); setMode(false); });
+      grid.appendChild(cell);
+    });
+
+    function select(i) {
+      current = i;
+      const c = concepts[i];
+      frame.src = c[0];
+      frame.title = c[1];
+      why.textContent = c[4];
+      open.href = c[0];
+      [...list.children].forEach((el, n) => el.setAttribute("aria-current", n === i ? "true" : "false"));
+    }
+
+    function fit() {
+      const vp = document.querySelector(".viewport");
+      const scale = vp.clientWidth / 1440;
+      const scaler = document.querySelector(".scaler");
+      scaler.style.transform = `scale(${scale})`;
+      frame.style.height = `${vp.clientHeight / scale}px`;
+    }
+
+    function fitGrid() {
+      document.querySelectorAll(".cell").forEach((cell) => {
+        const scale = cell.clientWidth / 1440;
+        cell.style.height = `${900 * scale}px`;
+        cell.querySelector("iframe").style.transform = `scale(${scale})`;
+      });
+    }
+
+    function setMode(gridOn) {
+      document.body.classList.toggle("gridmode", gridOn);
+      document.getElementById("one").setAttribute("aria-pressed", gridOn ? "false" : "true");
+      document.getElementById("all").setAttribute("aria-pressed", gridOn ? "true" : "false");
+      if (gridOn) {
+        document.querySelectorAll(".cell iframe").forEach((frameEl, i) => {
+          if (!frameEl.src) frameEl.src = concepts[i][0];
+        });
+        requestAnimationFrame(fitGrid);
+      } else {
+        requestAnimationFrame(fit);
+      }
+    }
+
+    document.getElementById("one").onclick = () => setMode(false);
+    document.getElementById("all").onclick = () => setMode(true);
+    window.addEventListener("resize", () => document.body.classList.contains("gridmode") ? fitGrid() : fit());
+    window.addEventListener("keydown", (e) => {
+      if (e.key >= "1" && e.key <= "9") {
+        const n = Number(e.key) - 1;
+        if (n < concepts.length) { select(n); setMode(false); }
+      }
+    });
+    select(0);
+    fit();
+  </script>
+</body>
+</html>

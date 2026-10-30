@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zain Rizvi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,460&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #11182b;
+      --ivory: #f3eee4;
+      --blue: #3f53ff;
+      --red: #f45d42;
+      --lav: #b5a5ff;
+      --glow: rgba(63, 83, 255, .18);
+    }
+    @property --gx {
+      syntax: "<percentage>";
+      inherits: false;
+      initial-value: 78%;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+      margin: 0;
+      color: var(--ivory);
+      background:
+        radial-gradient(520px 280px at var(--gx) 0%, var(--glow), transparent 70%),
+        var(--navy);
+      font-family: "Familjen Grotesk", sans-serif;
+      font-size: 17px;
+      line-height: 1.45;
+      animation: wash 18s ease-in-out infinite alternate;
+    }
+    @keyframes wash { to { --gx: 92%; } }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 40px;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(243, 238, 228, .22);
+    }
+    .word { font-weight: 600; text-decoration: none; letter-spacing: -.03em; }
+    .word i { display: inline-block; width: 8px; height: 8px; background: var(--blue); margin-right: 8px; }
+    header nav { display: flex; gap: 22px; }
+    header nav a { text-decoration: none; font-size: 15px; }
+    header nav a:hover { color: var(--red); }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(240px, .55fr);
+      gap: 28px;
+      align-items: end;
+      padding: 36px 40px 28px;
+    }
+    h1 {
+      margin: 0;
+      font-family: Fraunces, serif;
+      font-weight: 500;
+      font-size: clamp(4.6rem, 8.4vw, 8.2rem);
+      line-height: .82;
+      letter-spacing: -.045em;
+    }
+    h1 span { display: block; }
+    .shift {
+      margin-left: 11vw;
+      width: max-content;
+      background: var(--red);
+      color: var(--navy);
+      padding: 0 .08em .02em;
+    }
+    .bar {
+      display: inline-block;
+      width: .38em;
+      height: .62em;
+      background: var(--blue);
+      margin-right: .08em;
+    }
+    .side p { margin: 0 0 16px; max-width: 32ch; }
+    .side .who { color: var(--lav); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+    .cta { display: flex; gap: 18px; align-items: center; }
+    .btn { background: var(--red); color: var(--navy); text-decoration: none; padding: 8px 12px; font-weight: 600; }
+    .side a:not(.btn) { text-decoration: underline; text-underline-offset: 4px; }
+    .spread { position: relative; display: block; color: var(--ivory); text-decoration: none; margin-top: 18px; }
+    .spread .thumb { height: min(62vh, 560px); background: #0c1222; }
+    .cap {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 72px 40px 26px;
+      background: linear-gradient(transparent, rgba(17, 24, 43, .94));
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 12px;
+    }
+    .cap em { font-family: Fraunces, serif; font-style: italic; font-size: 13px; color: var(--lav); }
+    .cap h2 { margin: 0; font-family: Fraunces, serif; font-weight: 500; font-size: 42px; letter-spacing: -.03em; }
+    .cap p { grid-column: 2; margin: 0; max-width: 62ch; }
+    .list { padding: 10px 40px 20px; }
+    .list a {
+      display: grid;
+      grid-template-columns: 64px 160px 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 18px 0;
+      border-top: 1px solid rgba(243, 238, 228, .2);
+      text-decoration: none;
+    }
+    .list a:last-child { border-bottom: 1px solid rgba(243, 238, 228, .2); }
+    .list a:hover h3 { color: var(--red); }
+    .list em { font-family: Fraunces, serif; font-style: italic; color: var(--lav); }
+    .list .ph { aspect-ratio: 16/10; background: #0c1222; overflow: hidden; }
+    .list h3 { margin: 0 0 4px; font-family: Fraunces, serif; font-weight: 500; font-size: 28px; }
+    .list p { margin: 0; max-width: 62ch; }
+    #about {
+      margin-top: 48px;
+      background: var(--ivory);
+      color: var(--navy);
+      padding: 72px 40px;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 48px;
+    }
+    #about .label { margin: 0; color: var(--red); letter-spacing: .14em; text-transform: uppercase; font-size: 12px; font-weight: 600; }
+    #about h2 { margin: 8px 0 16px; font-family: Fraunces, serif; font-weight: 500; font-size: 48px; line-height: .95; letter-spacing: -.03em; }
+    #about p { margin: 0 0 12px; }
+    .role { padding: 14px 0; border-top: 2px solid var(--navy); }
+    .role strong { display: block; font-size: 20px; }
+    .meta { color: #5c5148; font-size: 14px; }
+    footer {
+      padding: 28px 40px 36px;
+      display: flex; justify-content: space-between; align-items: end; gap: 16px;
+    }
+    .mail { font-family: Fraunces, serif; font-size: 32px; text-decoration: none; }
+    footer nav { display: flex; gap: 18px; }
+    footer nav a { text-decoration: none; }
+    footer nav a:hover { color: var(--red); }
+    @media (max-width: 980px) {
+      .hero, #about, .list a, .cap { grid-template-columns: 1fr; }
+      .shift { margin-left: 0; }
+      header nav { display: none; }
+      h1 { font-size: 3.4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="word" href="#top"><i></i>Zain Rizvi</a>
+    <nav aria-label="Primary">
+      <a href="#work">Projects</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-label="Introduction">
+      <h1>
+        <span>Making</span>
+        <span class="shift">Complex</span>
+        <span><i class="bar"></i>Systems</span>
+        <span>Visible</span>
+      </h1>
+      <div class="side">
+        <p class="who">ML engineer and builder</p>
+        <p>Bringing data, algorithms, and simulations to life through interactive visualization.</p>
+        <div class="cta">
+          <a class="btn" href="#work">View projects</a>
+          <a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        </div>
+      </div>
+    </section>
+    <section id="work" aria-label="Selected work">
+      <a class="spread" href="https://zainrizvi.ca/projects/robotics-vla" target="_blank" rel="noopener">
+        <div class="thumb"><img src="../public/media/robotics-vla/demo.webp" alt="Robot arm simulation following a language command"></div>
+        <div class="cap">
+          <em>01</em>
+          <h2>Robotics VLA</h2>
+          <p>Fine-tuned the SmolVLA (450M) action expert to follow language commands, with attention visualized across 16 layers and a 7-joint MuJoCo simulator.</p>
+        </div>
+      </a>
+      <div class="list">
+        <a href="https://zainrizvi.ca/projects/rocket-league-analyzer" target="_blank" rel="noopener">
+          <em>02</em>
+          <span class="ph"><img src="../public/media/rocket-league-analyzer/sim.webp" alt="3D replay of cars and the ball on the pitch"></span>
+          <span><h3>Rocket League Analyzer</h3><p>A LangChain tool-calling LLM over match telemetry, plus a Dockerized 3D dashboard synced to replay playback.</p></span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/maple-market" target="_blank" rel="noopener">
+          <em>03</em>
+          <span class="ph"><img src="../public/media/maple-market/demo.webp" alt="Maple Market price replay and stock comparison"></span>
+          <span><h3>Maple Market</h3><p>A visual explorer for big Canadian stocks: TSX companies as planets, a heatmap, and plain-English tools for compare, dividends, and compound growth.</p></span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/stickdrift" target="_blank" rel="noopener">
+          <em>04</em>
+          <span class="ph"><img src="../public/media/stickdrift/gallery-5.jpg" alt="Harbour Fishing, played with one stick at a time"></span>
+          <span><h3>StickDrift</h3><p>A PS5-controller movement check disguised as games for long-term care.</p></span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/assembly-platformer" target="_blank" rel="noopener">
+          <em>05</em>
+          <span class="ph"><img src="../public/media/assembly-platformer/play.webp" alt="The assembly platformer being played on a 64 by 64 display"></span>
+          <span><h3>Assembly Platformer</h3><p>An 8-bit platformer written entirely in MIPS assembly, playable in the browser.</p></span>
+        </a>
+        <a href="https://zainrizvi.ca/projects/light2d" target="_blank" rel="noopener">
+          <em>06</em>
+          <span class="ph"><img src="assets/light2d.svg" alt="Glass lens splitting a beam into a spectrum"></span>
+          <span><h3>Light2D: Dispersion in 2D</h3><p>A 2D light transport simulator in C: mirrors, scatterers and glass lenses, with colour dispersion that splits white light into rainbows.</p></span>
+        </a>
+      </div>
+    </section>
+    <section id="about">
+      <div>
+        <p class="label">About</p>
+        <h2>The person behind the picture.</h2>
+        <p>I am a recent Honours BSc graduate from the University of Toronto, with a double major in Computer Science and Mathematics. My work sits between statistics and software: forecasting systems, machine learning models and the tooling that makes them usable.</p>
+        <p>I have shipped production forecasting at a national logistics company, built a robotics policy with language conditioning, and written everything from a 2D light simulator in C to a platformer in assembly. I work best on small teams where one person owns a problem end to end.</p>
+        <p>Honours BSc, Computer Science and Mathematics, University of Toronto. Sep 2022 – Aug 2026.</p>
+        <p>AI Olympics 1st Place Winner · Hack the Valley 9 Award Winner · MTO Road Safety Solutions, 2nd place · UofT Frank Faubert Scholarship</p>
+        <p>Also competed in Battle of the Schools (UofT and Waterloo), Putnam Math Competition 2023, and Hack the Valley 11.</p>
+      </div>
+      <div id="experience">
+        <article class="role">
+          <strong>Data Scientist Intern, Purolator Inc.</strong>
+          <p class="meta">Mississauga, ON · May 2025 – Dec 2025</p>
+          <p>Cut national operations forecast error 75% (4% to 1% MAPE) vs. the previous biweekly forecast, cross-validated on 5 years of data across 10M+ shipments.</p>
+        </article>
+        <article class="role">
+          <strong>Data Analyst Intern, Ontario Ministry of Transportation</strong>
+          <p class="meta">Toronto, ON · May 2024 – Aug 2024</p>
+          <p>Reconciled $1M+ across 130,000+ HCV payment records with algorithmic outlier detection in Python/Excel (processing time -95%).</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer id="contact">
+    <a class="mail" href="mailto:zain4rizvi@gmail.com">zain4rizvi@gmail.com</a>
+    <nav aria-label="Contact">
+      <a href="https://linkedin.com/in/zain4rizvi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Zain4Rizvi" target="_blank" rel="noopener">GitHub</a>
+      <a href="../public/Zain%20Rizvi%20Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </footer>
+</body>
+</html>
