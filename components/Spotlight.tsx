@@ -1,11 +1,13 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const QUERY = "(hover: none), (prefers-reduced-motion: reduce)";
 
 export default function Spotlight() {
   const ref = useRef<HTMLDivElement>(null);
+  const path = usePathname();
   const [on, setOn] = useState(false);
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function Spotlight() {
   }, []);
 
   useEffect(() => {
-    if (!on) return;
+    if (!on || path === "/") return;
     const el = ref.current;
     if (!el) return;
 
@@ -30,8 +32,8 @@ export default function Spotlight() {
     return () => {
       window.removeEventListener("pointermove", onMove);
     };
-  }, [on]);
+  }, [on, path]);
 
-  if (!on) return null;
+  if (!on || path === "/") return null;
   return <div ref={ref} aria-hidden className="spotlight" />;
 }
